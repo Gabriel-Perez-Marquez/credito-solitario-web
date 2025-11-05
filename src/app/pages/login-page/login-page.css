@@ -11,3 +11,30 @@ button {
     cursor: pointer;
 }
 
+
+.side-panel {
+    position: fixed;
+    width: 900px;
+    height: 900px;
+    background-color: #012E59;
+    z-index: 0;
+}
+
+.side-left {
+    top: -450px;
+    left: -450px;
+    transform: rotate(45deg);
+    transform-origin: center;
+}
+
+.side-right {
+    bottom: -450px;
+    right: -450px;
+    transform: rotate(45deg);
+    transform-origin: center;
+}
+
+
+#login {
+    margin-top: -150px;
+}
