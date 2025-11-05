@@ -1,1 +1,48 @@
-<p>login-page works!</p>
+<!-- Paneles laterales esquinas -->
+<div class="side-panel side-left" aria-hidden="true"></div>
+<div class="side-panel side-right" aria-hidden="true"></div>
+
+<div class="container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div id="login" class="col-12 col-md-8 col-lg-5">
+      <div class="border-0">
+        <div class="card-body">
+          <!-- Imagen -->
+          <div class="text-center">
+            <img
+              src="/assets/images/Logo-CreditoSolidario.png"
+              alt="Logo Crédito Solidario"
+              class="img-fluid"
+              style="max-width: 300px"
+            />
+          </div>
+
+          <!-- Formulario -->
+          <form class="">
+            <div class="mb-4">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="usuario"
+                placeholder="Usuario"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="contraseña"
+                placeholder="Contraseña"
+                required
+              />
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" (click)="navigateToDashboard()" class="btn btn-lg btn-primary">Iniciar Sesión</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

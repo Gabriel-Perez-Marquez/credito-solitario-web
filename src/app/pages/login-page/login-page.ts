@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login-page',
@@ -7,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrl: './login-page.css',
 })
 export class LoginPage {
+
+  constructor (private router: Router) {}
+
+  navigateToDashboard () {
+    this.router.navigateByUrl('/dashboard')
+  }
+  
 
 }
