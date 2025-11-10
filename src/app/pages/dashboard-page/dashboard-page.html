@@ -1,126 +1,90 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- Menú Lateral -->
-    <div class="col-md-3 col-lg-2 bg-light vh-100 position-fixed">
-      <div class="sidebar-sticky pt-3">
-        <h5 class="px-3 mb-4">Categories</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a class="nav-link active" href="#">
-              <span class="ms-2">Pecidos</span>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
-              <span class="ms-2">Products</span>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
-              <span class="ms-2">Client</span>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
-              <span class="ms-2">Lista de compra</span>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link" href="#">
-              <span class="ms-2">Categorías</span>
-            </a>
-          </li>
-        </ul>
+<div class="dashboard-container">
+  <div class="overview-section">
+    <h4 class="section-title">Overview</h4>
+
+    <div class="categories">
+      <div class="category-card comida">
+        <div class="icon bg-warning">
+          <i class="bi bi-cash-stack"></i>
+        </div>
+        <div class="info">
+          <h5>Comida</h5>
+          <p>$12,750</p>
+        </div>
+      </div>
+
+      <div class="category-card ropa">
+        <div class="icon bg-primary">
+          <i class="bi bi-hand-thumbs-up"></i>
+        </div>
+        <div class="info">
+          <h5>Ropa</h5>
+          <p>$5,600</p>
+        </div>
+      </div>
+
+      <div class="category-card hogar">
+        <div class="icon bg-danger">
+          <i class="bi bi-receipt"></i>
+        </div>
+        <div class="info">
+          <h5>Hogar</h5>
+          <p>$3,460</p>
+        </div>
+      </div>
+
+      <div class="category-card tecnologia">
+        <div class="icon bg-info">
+          <i class="bi bi-piggy-bank"></i>
+        </div>
+        <div class="info">
+          <h5>Tecnología</h5>
+          <p>$7,920</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lower-section row">
+    <div class="col-md-6">
+      <div class="card money-card">
+        <h5>Money from orders</h5>
+        <div class="money-value">
+          <i class="bi bi-hand-thumbs-up text-primary"></i>
+          <span>$5,600</span>
+        </div>
       </div>
     </div>
 
-    <!-- Contenido Principal -->
-    <div class="col-md-9 col-lg-10 ms-auto">
-      <!-- Encabezado Overview -->
-      <div class="p-4">
-        <h1 class="h2 mb-4">Overview</h1>
-        
-        <div class="row">
-          <!-- Tarjetas de Gastos -->
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <div class="card border-0 bg-primary text-white">
-                  <div class="card-body">
-                    <h5 class="card-title">Comida</h5>
-                    <h3 class="card-text">$12,750</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="card border-0 bg-success text-white">
-                  <div class="card-body">
-                    <h5 class="card-title">Ropa</h5>
-                    <h3 class="card-text">$5,600</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="card border-0 bg-warning text-dark">
-                  <div class="card-body">
-                    <h5 class="card-title">Hogar</h5>
-                    <h3 class="card-text">$3,460</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="card border-0 bg-info text-white">
-                  <div class="card-body">
-                    <h5 class="card-title">Tecnología</h5>
-                    <h3 class="card-text">$7,920</h3>
-                  </div>
-                </div>
-              </div>
+    <div class="col-md-6">
+      <div class="card recent-card">
+        <h5>Recent Transactions</h5>
+        <ul class="list-unstyled mt-3">
+          <li class="transaction">
+            <div class="icon bg-warning"><i class="bi bi-credit-card"></i></div>
+            <div class="details">
+              <span class="title">Pedido 1</span>
+              <small>28 January 2021</small>
             </div>
-          </div>
-
-          <!-- Sección Money form orders -->
-          <div class="col-md-4">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title">Money form orders</h5>
-                <h3 class="text-primary mb-4">$5,600</h3>
-                
-                <h6 class="text-muted mb-3">Recent Transaction</h6>
-                
-                <div class="transaction-item mb-3">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <div class="fw-bold">Pecido 1</div>
-                      <div class="text-muted small">28 January 2021</div>
-                    </div>
-                    <span class="text-success fw-bold">+$850</span>
-                  </div>
-                </div>
-                
-                <div class="transaction-item mb-3">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <div class="fw-bold">Pecido 2</div>
-                      <div class="text-muted small">25 January 2021</div>
-                    </div>
-                    <span class="text-success fw-bold">+$2,500</span>
-                  </div>
-                </div>
-                
-                <div class="transaction-item">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <div class="fw-bold">Pecido 3</div>
-                      <div class="text-muted small">21 January 2021</div>
-                    </div>
-                    <span class="text-success fw-bold">+$5,400</span>
-                  </div>
-                </div>
-              </div>
+            <span class="amount text-success">+$850</span>
+          </li>
+          <li class="transaction">
+            <div class="icon bg-primary"><i class="bi bi-paypal"></i></div>
+            <div class="details">
+              <span class="title">Pedido 2</span>
+              <small>25 January 2021</small>
             </div>
-          </div>
-        </div>
+            <span class="amount text-success">+$2,500</span>
+          </li>
+          <li class="transaction">
+            <div class="icon bg-info"><i class="bi bi-cash-coin"></i></div>
+            <div class="details">
+              <span class="title">Pedido 3</span>
+              <small>21 January 2021</small>
+            </div>
+            <span class="amount text-success">+$5,400</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
