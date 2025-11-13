@@ -12,7 +12,7 @@
     <div class="col-2 border-end">
       <ul class="nav flex-column">
         <li class="nav-item mt-3 mb-2">
-          <a class="nav-link" aria-current="page" href="/dashboard"
+          <a class="nav-link text-secondary" href="/dashboard"
             ><i class="bi bi-house-door-fill"></i> Dashboard</a
           >
         </li>
@@ -22,7 +22,7 @@
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" href="/products"
+          <a class="nav-link" href="/products"
             ><i class="bi bi-archive-fill"></i> Productos</a
           >
         </li>
@@ -58,9 +58,15 @@
                     <option value="stock-asc">Stock (menor a mayor)</option>
                     <option value="stock-desc">Stock (mayor a menor)</option>
                 </select>
-                <a href="/products/add" class="btn btn-success me-4">
-                    <i class="bi bi-plus-circle-fill"></i> Agregar Producto
-                </a>
+                <div class="d-flex gap-2 me-4">
+                    <div class="position-relative" style="max-width: 300px;">
+                        <input type="text" class="form-control ps-5" placeholder="Buscar productos...">
+                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    </div>
+                    <a href="/products/add" class="btn btn-success">
+                        <i class="bi bi-plus-circle-fill"></i> Agregar Producto
+                    </a>
+                </div>
             </div>
             @for(p of products; track p.id){
             <div class="card" style="width: 16rem; flex-shrink: 0;">
