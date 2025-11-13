@@ -1,149 +1,161 @@
- <!-- Sidebar fijo -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-logo">
-          <i class="bi bi-handshake"></i>
+<nav class="navbar bg-body border-bottom fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-handshake"></i>
+        <span>CréditoSolidario</span>
+      </a>
+      <span class="h5 mb-0">Overview</span>
+    </div>
+  </nav>
+
+  <!-- ASIDE LATERAL -->
+  <aside class="sidebar bg-body border-end border-3 border-primary-subtle shadow-sm p-3">
+    <nav class="menu nav flex-column">
+      <a class="nav-link active d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-card-checklist"></i>
+        <span>Pedidos</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-box-seam"></i>
+        <span>Products</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-person"></i>
+        <span>Client</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-cart3"></i>
+        <span>Lista de compra</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-funnel"></i>
+        <span>Categorías</span>
+      </a>
+      <hr>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Salir</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN DEBAJO DEL NAVBAR -->
+  <main class="main">
+    <!-- Tu contenido original -->
+    <header class="topbar mb-3">
+      <button class="btn btn-outline-secondary" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+      <h1 class="h4 d-inline ms-2">Overview</h1>
+    </header>
+
+    <div class="content">
+      <section class="overview-section card p-3 mb-3">
+        <h4 class="section-title">Categories</h4>
+
+        <div class="categories d-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+          <div class="category-card comida d-flex align-items-center p-3 border rounded">
+            <div class="icon bg-warning d-inline-flex justify-content-center align-items-center rounded me-3" style="width:40px;height:40px;">
+              <i class="bi bi-cash-stack"></i>
+            </div>
+            <div class="info">
+              <h5 class="mb-1">Comida</h5>
+              <p class="mb-0">$12,750</p>
+            </div>
+          </div>
+
+          <div class="category-card ropa d-flex align-items-center p-3 border rounded">
+            <div class="icon bg-primary text-white d-inline-flex justify-content-center align-items-center rounded me-3" style="width:40px;height:40px;">
+              <i class="bi bi-hand-thumbs-up"></i>
+            </div>
+            <div class="info">
+              <h5 class="mb-1">Ropa</h5>
+              <p class="mb-0">$5,600</p>
+            </div>
+          </div>
+
+          <div class="category-card hogar d-flex align-items-center p-3 border rounded">
+            <div class="icon bg-danger text-white d-inline-flex justify-content-center align-items-center rounded me-3" style="width:40px;height:40px;">
+              <i class="bi bi-receipt"></i>
+            </div>
+            <div class="info">
+              <h5 class="mb-1">Hogar</h5>
+              <p class="mb-0">$3,460</p>
+            </div>
+          </div>
+
+          <div class="category-card tecnologia d-flex align-items-center p-3 border rounded">
+            <div class="icon bg-info text-white d-inline-flex justify-content-center align-items-center rounded me-3" style="width:40px;height:40px;">
+              <i class="bi bi-piggy-bank"></i>
+            </div>
+            <div class="info">
+              <h5 class="mb-1">Tecnología</h5>
+              <p class="mb-0">$7,920</p>
+            </div>
+          </div>
         </div>
-        <span class="brand-name">CréditoSolidario</span>
-      </div>
+      </section>
 
-      <nav class="menu">
-        <a class="menu-item active" href="#">
-          <i class="bi bi-speedometer2"></i>
-          <span>Dashboard</span>
-        </a>
-        <a class="menu-item" href="#">
-          <i class="bi bi-card-checklist"></i>
-          <span>Pedidos</span>
-        </a>
-        <a class="menu-item" href="#">
-          <i class="bi bi-box-seam"></i>
-          <span>Products</span>
-        </a>
-        <a class="menu-item" href="#">
-          <i class="bi bi-person"></i>
-          <span>Client</span>
-        </a>
-        <a class="menu-item" href="#">
-          <i class="bi bi-cart3"></i>
-          <span>Lista de compra</span>
-        </a>
-        <a class="menu-item" href="#">
-          <i class="bi bi-funnel"></i>
-          <span>Categorías</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-footer">
-        <a class="menu-item" href="#">
-          <i class="bi bi-box-arrow-left"></i>
-          <span>Salir</span>
-        </a>
-      </div>
-    </aside>
-
-    <!-- Contenido principal -->
-    <main class="main">
-      <header class="topbar">
-        <button class="menu-toggle" aria-label="Abrir menú">
-          <i class="bi bi-list"></i>
-        </button>
-        <h1>Overview</h1>
-      </header>
-
-      <div class="content">
-        <section class="overview-section card">
-          <h4 class="section-title">Categories</h4>
-
-          <div class="categories">
-            <div class="category-card comida">
-              <div class="icon bg-warning">
-                <i class="bi bi-cash-stack"></i>
-              </div>
-              <div class="info">
-                <h5>Comida</h5>
-                <p>$12,750</p>
-              </div>
-            </div>
-
-            <div class="category-card ropa">
-              <div class="icon bg-primary">
-                <i class="bi bi-hand-thumbs-up"></i>
-              </div>
-              <div class="info">
-                <h5>Ropa</h5>
-                <p>$5,600</p>
-              </div>
-            </div>
-
-            <div class="category-card hogar">
-              <div class="icon bg-danger">
-                <i class="bi bi-receipt"></i>
-              </div>
-              <div class="info">
-                <h5>Hogar</h5>
-                <p>$3,460</p>
-              </div>
-            </div>
-
-            <div class="category-card tecnologia">
-              <div class="icon bg-info">
-                <i class="bi bi-piggy-bank"></i>
-              </div>
-              <div class="info">
-                <h5>Tecnología</h5>
-                <p>$7,920</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="grid-2">
-          <div class="card money-card">
+      <section class="grid-2 row g-3">
+        <div class="col-12 col-lg-6">
+          <div class="card p-3 h-100 money-card">
             <h5 class="card-title">Money from orders</h5>
-            <div class="money-value">
-              <div class="icon xl bg-primary-soft">
-                <i class="bi bi-hand-thumbs-up text-primary"></i>
+            <div class="money-value d-flex align-items-center gap-3">
+              <div class="icon d-inline-flex justify-content-center align-items-center rounded-circle bg-primary-subtle" style="width:56px;height:56px;">
+                <i class="bi bi-hand-thumbs-up text-primary fs-4"></i>
               </div>
-              <span class="amount">$5,600</span>
+              <span class="amount fs-3">$5,600</span>
             </div>
           </div>
+        </div>
 
-          <div class="card recent-card">
+        <div class="col-12 col-lg-6">
+          <div class="card p-3 h-100 recent-card">
             <h5 class="card-title">Recent Transactions</h5>
-            <ul class="list-unstyled mt-3">
-              <li class="transaction">
-                <div class="icon bg-warning">
-                  <i class="bi bi-credit-card"></i>
-                </div>
-                <div class="details">
-                  <span class="title">Pedido 1</span>
-                  <small>28 January 2021</small>
+            <ul class="list-unstyled mt-3 mb-0">
+              <li class="transaction d-flex align-items-center justify-content-between py-2 border-bottom">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="icon bg-warning d-inline-flex justify-content-center align-items-center rounded" style="width:36px;height:36px;">
+                    <i class="bi bi-credit-card"></i>
+                  </div>
+                  <div class="details">
+                    <span class="title d-block">Pedido 1</span>
+                    <small class="text-muted">28 January 2021</small>
+                  </div>
                 </div>
                 <span class="amount text-success">+$850</span>
               </li>
-              <li class="transaction">
-                <div class="icon bg-primary">
-                  <i class="bi bi-paypal"></i>
-                </div>
-                <div class="details">
-                  <span class="title">Pedido 2</span>
-                  <small>25 January 2021</small>
+              <li class="transaction d-flex align-items-center justify-content-between py-2 border-bottom">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="icon bg-primary text-white d-inline-flex justify-content-center align-items-center rounded" style="width:36px;height:36px;">
+                    <i class="bi bi-paypal"></i>
+                  </div>
+                  <div class="details">
+                    <span class="title d-block">Pedido 2</span>
+                    <small class="text-muted">25 January 2021</small>
+                  </div>
                 </div>
                 <span class="amount text-success">+$2,500</span>
               </li>
-              <li class="transaction">
-                <div class="icon bg-info">
-                  <i class="bi bi-cash-coin"></i>
-                </div>
-                <div class="details">
-                  <span class="title">Pedido 3</span>
-                  <small>21 January 2021</small>
+              <li class="transaction d-flex align-items-center justify-content-between py-2">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="icon bg-info text-white d-inline-flex justify-content-center align-items-center rounded" style="width:36px;height:36px;">
+                    <i class="bi bi-cash-coin"></i>
+                  </div>
+                  <div class="details">
+                    <span class="title d-block">Pedido 3</span>
+                    <small class="text-muted">21 January 2021</small>
+                  </div>
                 </div>
                 <span class="amount text-success">+$5,400</span>
               </li>
             </ul>
           </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </section>
+    </div>
+  </main>
