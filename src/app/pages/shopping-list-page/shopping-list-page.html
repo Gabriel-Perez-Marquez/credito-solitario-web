@@ -1,1 +1,151 @@
-<p>shopping-list-page works!</p>
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+
+<div class="container-fluid m-0 min-vh-100 d-flex flex-column" style="min-height: 100vh;">
+	<div class="row flex-shrink-0">
+		<div class="p-4 col-2 border-bottom-0">Credito</div>
+		<div class="p-4 col-10 border-bottom">Lista de Compras</div>
+	</div>
+	<div class="row flex-grow-1" style="flex: 1 1 auto; min-height: 0;">
+		<div class="col-2 border-end">
+			<ul class="nav flex-column">
+				<li class="nav-item mt-3 mb-2">
+					<a class="nav-link text-secondary" href="/dashboard"
+						><i class="bi bi-house-door-fill"></i> Dashboard</a
+					>
+				</li>
+				<li class="nav-item mb-2">
+					<a class="nav-link text-secondary" href="/orders"
+						><i class="bi bi-box2-fill"></i> Pedidos</a
+					>
+				</li>
+				<li class="nav-item mb-2">
+					<a class="nav-link text-secondary" href="/products"
+						><i class="bi bi-archive-fill"></i> Productos</a
+					>
+				</li>
+				<li class="nav-item mb-2">
+					<a class="nav-link text-secondary" href="/clients"
+						><i class="bi bi-person-fill"></i> Clientes</a
+					>
+				</li>
+				<li class="nav-item mb-2">
+					<a class="nav-link text-secondary" href="/categories"
+						><i class="bi bi-funnel-fill"></i> Categorias</a
+					>
+				</li>
+				<li class="nav-item mb-2">
+					<a class="nav-link" href="shopping-list"
+						><i class="bi bi-cart-fill"></i> Carrito de la compra</a
+					>
+				</li>
+			</ul>
+		</div>
+		<div class="col-10 bg-light d-flex flex-column" style="min-height: 0;">
+			<main class="flex-grow-1 d-flex flex-column justify-content-start" style="min-height: 0;">
+				<div class="container mt-4 flex-grow-1 d-flex flex-column" style="min-height: 0;">
+					<h5 class="ms-2">Gestión de Lista de Compras</h5>
+					<div class="table-responsive mt-4">
+						<table class="table table-bordered align-middle bg-white">
+							<thead class="table-light">
+								<tr>
+									<th style="width: 50px; text-align: center;">Seleccionar</th>
+									<th>Producto</th>
+									<th>Categoría</th>
+									<th>Cantidad</th>
+									<th>Prioridad</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center"><input type="checkbox"></td>
+									<td>Leche</td>
+									<td>Lácteos</td>
+									<td><input type="number" class="form-control" min="1" value="1" style="width: 80px;"></td>
+									<td>
+										<select class="form-select">
+											<option>Baja</option>
+											<option>Media</option>
+											<option>Alta</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center"><input type="checkbox"></td>
+									<td>Pan</td>
+									<td>Panadería</td>
+									<td><input type="number" class="form-control" min="1" value="2" style="width: 80px;"></td>
+									<td>
+										<select class="form-select">
+											<option>Baja</option>
+											<option selected>Media</option>
+											<option>Alta</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center"><input type="checkbox"></td>
+									<td>Agua</td>
+									<td>Bebidas</td>
+									<td><input type="number" class="form-control" min="1" value="6" style="width: 80px;"></td>
+									<td>
+										<select class="form-select">
+											<option>Baja</option>
+											<option>Media</option>
+											<option selected>Alta</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center"><input type="checkbox"></td>
+									<td>Queso</td>
+									<td>Lácteos</td>
+									<td><input type="number" class="form-control" min="1" value="1" style="width: 80px;"></td>
+									<td>
+										<select class="form-select">
+											<option selected>Baja</option>
+											<option>Media</option>
+											<option>Alta</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center"><input type="checkbox"></td>
+									<td>Refresco</td>
+									<td>Bebidas</td>
+									<td><input type="number" class="form-control" min="1" value="3" style="width: 80px;"></td>
+									<td>
+										<select class="form-select">
+											<option>Baja</option>
+											<option selected>Media</option>
+											<option>Alta</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+																	<div class="d-flex flex-column align-items-end mt-4 ms-auto" style="max-width: 400px;">
+																		<div class="w-100 mb-1 text-end">
+																			<span class="fw-semibold">Precio sin IVA:</span>
+																			<span class="ms-2">€ 45.00</span>
+																		</div>
+																		<div class="w-100 mb-1 text-end">
+																			<span class="fw-semibold">IVA (21%):</span>
+																			<span class="ms-2">€ 9.45</span>
+																		</div>
+																		<div class="w-100 border-top pt-2 text-end">
+																			<span class="fw-bold">Total:</span>
+																			<span class="fw-bold ms-2">€ 54.45</span>
+																		</div>
+																		<button class="btn btn-primary mt-3">
+																			<i class="bi bi-cart-check"></i> Comprar
+																		</button>
+																	</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</div>
