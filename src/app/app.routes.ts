@@ -20,6 +20,7 @@ export const routes: Routes = [
     { path: 'clients/create', component: UsersCreatePage},
     { path: 'categories', component: CategoriesPage},
     { path: 'categories/create', component: CategoriesCreatePage},
+    { path: 'categories/edit/:id', component: CategoriesCreatePage},
     { path: 'shopping-cart', component: ShoppingListPage},
     { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];

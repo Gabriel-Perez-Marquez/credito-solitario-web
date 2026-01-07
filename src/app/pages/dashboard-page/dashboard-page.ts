@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
-
-export interface Categories{
-  id:number,
-  nombre:String,
-  ganancia: number
-}
+import { Component, OnInit } from '@angular/core';
+import { CategoriesResponse } from '../../interfaces/categorias.interface';
+import { CategoriesService } from '../../services/categories-service';
 
 
 @Component({
@@ -13,11 +9,18 @@ export interface Categories{
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })
-export class DashboardPage {
-
-  categories: Categories [] = [
-    { id: 1, nombre: 'Comida', ganancia: 0 },
-    { id: 2, nombre: 'Ropa', ganancia: 0 }
-  ]
+export class DashboardPage implements OnInit{
+  
+  categories:  CategoriesResponse = []
+  
+  constructor( private categoriasService: CategoriesService) {
+    
+  }
+  
+  ngOnInit(): void {
+    this.categoriasService.getCategorias().subscribe(resp => {
+      this.categories = resp;
+    })
+  }
 
 }

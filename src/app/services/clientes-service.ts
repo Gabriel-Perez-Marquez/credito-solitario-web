@@ -8,7 +8,7 @@ import { ClienteResponse } from '../interfaces/clientes-response';
 })
 export class ClientesService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/clientes';
+  apiUrl = 'http://127.0.0.1:8000/api/clientes';
 
   constructor(private http: HttpClient) { }
 
