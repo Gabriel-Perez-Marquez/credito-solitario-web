@@ -81,10 +81,10 @@
 
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
-                                                <a href="#" class="btn btn-sm btn-warning" title="Editar">
+                                                <a [routerLink]="['/clients/edit', cliente.id]" class="btn btn-sm btn-warning" title="Editar">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-danger" title="Eliminar">
+                                                <button type="button" class="btn btn-sm btn-danger" (click)="deleteClient(cliente.id)" title="Eliminar">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>

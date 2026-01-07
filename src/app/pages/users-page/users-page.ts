@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../services/clientes-service';
 import { ClienteResponse } from '../../interfaces/clientes-response';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-users-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './users-page.html',
   styleUrl: './users-page.css',
 })
@@ -17,6 +18,14 @@ export class UsersPage implements OnInit {
   ngOnInit(): void {
     this.clienteService.getClientes().subscribe(resp => {
       this.clientes = resp
+    });
+  }
+
+  deleteClient(id: number){
+    this.clienteService.deleteClient(id).subscribe(() => {
+      this.clienteService.getClientes().subscribe(resp => {
+        this.clientes = resp
+      });
     });
   }
 

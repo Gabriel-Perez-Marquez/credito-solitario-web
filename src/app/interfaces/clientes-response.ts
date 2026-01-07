@@ -6,6 +6,9 @@ export interface Cliente {
   apellidos: string
   telefono: string
   email: string
+  dni: number
+  saldo: number
+  activo: boolean
   direccion_id: number
   created_at: string
   updated_at: string
