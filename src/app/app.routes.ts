@@ -18,8 +18,10 @@ export const routes: Routes = [
     { path: 'products/add', component: ProductsCreatePage},
     { path: 'clients', component: UsersPage},
     { path: 'clients/create', component: UsersCreatePage},
+    { path: 'clients/edit/:id', component: UsersCreatePage},
     { path: 'categories', component: CategoriesPage},
     { path: 'categories/create', component: CategoriesCreatePage},
+    { path: 'categories/edit/:id', component: CategoriesCreatePage},
     { path: 'shopping-cart', component: ShoppingListPage},
     { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
