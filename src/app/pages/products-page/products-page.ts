@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../interfaces/producto.interface';
 import { ProductoService } from '../../services/producto-service';
 import { RouterLink } from "@angular/router";
+import { CarritoService } from '../../services/carrito-service';
 
 
 
@@ -16,7 +17,7 @@ import { RouterLink } from "@angular/router";
 export class ProductsPage implements OnInit{
 
 
-  constructor(private productoService: ProductoService) {}
+  constructor(private productoService: ProductoService, private carritoService: CarritoService) {}
 
   products: Producto[] = [];
     
@@ -33,6 +34,10 @@ export class ProductsPage implements OnInit{
         this.products = resp;
       });
     });
+  }
+
+  addToCart(producto_id: number){
+    this.carritoService.agregarProducto(producto_id, 1).subscribe();
   }
 
 
