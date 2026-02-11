@@ -48,77 +48,103 @@
         <div class="container mt-4 pb-4">
           <div class="row justify-content-center">
             <div class="col-lg-8">
+              
+              @if(errors.length > 0) {
+                <div class="alert alert-danger">
+                  @for(err of errors; track $index) { <div>{{ err }}</div> }
+                </div>
+              }
+
               <div class="card shadow-sm">
                 <div class="card-header bg-success text-white">
                   <h4 class="mb-0">
-                    <i class="bi bi-plus-circle-fill"></i> Agregar Nuevo Producto
+                    <i class="bi"></i>
+                    Guardar Producto
                   </h4>
                 </div>
+                
                 <div class="card-body p-4">
-                  <form>
+                  <form [formGroup]="productForm" (ngSubmit)="validateForm()">
                     <div class="row">
-                      <!-- Columna izquierda -->
                       <div class="col-md-6">
+                        
                         <div class="mb-3">
-                          <label for="nombre" class="form-label">Nombre</label>
+                          <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
                           <input 
                             type="text" 
                             class="form-control" 
                             id="nombre" 
+                            formControlName="nombre"
                             placeholder="Ej: Laptop HP" 
-                            required
+                            [class.is-invalid]="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched"
                           >
+                          <div class="invalid-feedback">El nombre es obligatorio.</div>
                         </div>
 
                         <div class="mb-3">
-                          <label for="urlImagen" class="form-label">URL Imagen</label>
+                          <label for="urlImagen" class="form-label">URL Imagen <span class="text-danger">*</span></label>
                           <input 
                             type="url" 
                             class="form-control" 
                             id="urlImagen" 
+                            formControlName="urlImagen"
                             placeholder="https://ejemplo.com/imagen.jpg" 
-                            required
+                            [class.is-invalid]="productForm.get('urlImagen')?.invalid && productForm.get('urlImagen')?.touched"
                           >
+                          <div class="invalid-feedback">La URL de la imagen es obligatoria.</div>
+                          
+                          @if(productForm.get('urlImagen')?.value) {
+                            <div class="mt-2 text-center">
+                                <img [src]="productForm.get('urlImagen')?.value" alt="Preview" style="height: 80px; border-radius: 5px;" 
+                                     onerror="this.style.display='none'">
+                            </div>
+                          }
                         </div>
 
                         <div class="mb-3">
-                          <label for="stockInicial" class="form-label">Stock Inicial</label>
+                          <label for="stockInicial" class="form-label">Stock <span class="text-danger">*</span></label>
                           <input 
                             type="number" 
                             class="form-control" 
                             id="stockInicial" 
+                            formControlName="stock"
                             placeholder="0" 
                             min="0"
-                            required
+                            [class.is-invalid]="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
                           >
+                          <div class="invalid-feedback">El stock es obligatorio y debe ser positivo.</div>
                         </div>
 
                         <div class="mb-3">
-                          <label for="categoria" class="form-label">Categoría</label>
-                          <select class="form-select" id="categoria" required>
-                            <option value="" selected>Selecciona una categoría...</option>
-                            <option value="electronica">Electrónica</option>
-                            <option value="accesorios">Accesorios</option>
-                            <option value="perifericos">Periféricos</option>
-                            <option value="otros">Otros</option>
+                          <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                          <select class="form-select" id="categoria" formControlName="categoria_id"
+                                  [class.is-invalid]="productForm.get('categoria_id')?.invalid && productForm.get('categoria_id')?.touched">
+                            <option [ngValue]="null" disabled>Selecciona una categoría...</option>
+                            
+                            @for (cat of categories; track cat.id) {
+                                <option [ngValue]="cat.id">{{ cat.nombre }}</option>
+                            }
                           </select>
+                          <div class="invalid-feedback">Selecciona una categoría válida.</div>
                         </div>
                       </div>
 
-                      <!-- Columna derecha -->
                       <div class="col-md-6">
+                        
                         <div class="mb-3">
-                          <label for="precio" class="form-label">Precio</label>
-                          <div class="input-group">
+                          <label for="precio" class="form-label">Precio <span class="text-danger">*</span></label>
+                          <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
                             <input 
                               type="number" 
                               class="form-control" 
                               id="precio" 
+                              formControlName="precio"
                               placeholder="0.00" 
                               step="0.01"
-                              required
+                              [class.is-invalid]="productForm.get('precio')?.invalid && productForm.get('precio')?.touched"
                             >
+                            <div class="invalid-feedback">El precio es obligatorio.</div>
                           </div>
                         </div>
 
@@ -127,9 +153,9 @@
                           <textarea 
                             class="form-control" 
                             id="descripcion" 
+                            formControlName="descripcion"
                             rows="5" 
                             placeholder="Descripción del producto..."
-                            required
                           ></textarea>
                         </div>
 
@@ -139,21 +165,24 @@
                               class="form-check-input" 
                               type="checkbox" 
                               id="enVenta"
+                              formControlName="activo"
                             >
                             <label class="form-check-label" for="enVenta">
-                              En venta
+                              En venta (Activo)
                             </label>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="d-flex gap-2 justify-content-end mt-3">
-                      <a href="/products" class="btn btn-secondary">
+                    <div class="d-flex gap-2 justify-content-end mt-3 border-top pt-3">
+                      <a [routerLink]="['/products']" class="btn btn-secondary">
                         <i class="bi bi-x-circle"></i> Cancelar
                       </a>
-                      <button type="submit" class="btn btn-success">
-                        <i class="bi bi-save"></i> Guardar Producto
+                      <button type="submit" class="btn bg-success text-white">
+                        
+                        <i class="bi bi-save"></i> Guardar Producto 
+                        
                       </button>
                     </div>
                   </form>
