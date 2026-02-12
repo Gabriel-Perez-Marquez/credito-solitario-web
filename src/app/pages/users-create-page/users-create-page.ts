@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ClientesService } from '../../services/clientes-service';
 import { Cliente, Direccion } from '../../interfaces/clientes-response';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,7 +7,7 @@ import { DireccionesService } from '../../services/direcciones-service';
 
 @Component({
   selector: 'app-users-create-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './users-create-page.html',
   styleUrl: './users-create-page.css',
 })
@@ -16,6 +16,7 @@ export class UsersCreatePage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private clientesService: ClientesService, private direccionesService: DireccionesService) {}
   
   errors: string[] = [];
+  isSaving = false;
   clientId: number = 0;
   cliente: Cliente | null = null;
   direcciones: Direccion [] = []
@@ -78,6 +79,7 @@ export class UsersCreatePage implements OnInit {
   }
 
   saveClient() {
+    this.isSaving = true;
     const nombre = this.createForm.value.nombre ?? '';
     const apellidos = this.createForm.value.apellidos ?? '';
     const telefono = this.createForm.value.telefono ?? '';
@@ -89,15 +91,27 @@ export class UsersCreatePage implements OnInit {
 
     if (this.clientId) {
       this.clientesService.editClient(this.clientId, nombre, apellidos, telefono, email, dni, saldo, activo, direccion_id)
-        .subscribe()
+        .subscribe({
+          next: () => this.navigateToClients(),
+          error: () => {
+            this.errors = ['No se pudo guardar el cliente. Revisa los datos e intentalo de nuevo.'];
+            this.isSaving = false;
+          }
+        });
       
     } else {
-      this.clientesService.createClient(nombre, apellidos, telefono, email, dni, saldo, activo, direccion_id).subscribe(resp => {
-        this.cliente= resp
-      })
+      this.clientesService.createClient(nombre, apellidos, telefono, email, dni, saldo, activo, direccion_id)
+        .subscribe({
+          next: (resp) => {
+            this.cliente = resp;
+            this.navigateToClients();
+          },
+          error: () => {
+            this.errors = ['No se pudo crear el cliente. Revisa los datos e intentalo de nuevo.'];
+            this.isSaving = false;
+          }
+        });
     }
-
-    this.navigateToClients();
   }
 
   navigateToClients() {

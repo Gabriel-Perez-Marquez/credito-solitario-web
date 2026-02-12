@@ -16,6 +16,7 @@ export class ProductsCreatePage implements OnInit{
 
   categories: Categoria[] = [];
   errors: string[] = [];
+  isSaving = false;
   productId: number = 0;
   producto: Product | null = null
 
@@ -80,6 +81,7 @@ export class ProductsCreatePage implements OnInit{
   }
 
   saveProduct(){
+    this.isSaving = true;
     const productData = {
       id: this.productId,
       nombre: this.productForm.value.nombre || '',
@@ -92,13 +94,25 @@ export class ProductsCreatePage implements OnInit{
     };
 
     if(this.productId){
-      this.productsService.updateProduct(this.productId, productData)
+      this.productsService.updateProduct(this.productId, productData).subscribe({
+        next: () => this.navigateToProductos(),
+        error: () => {
+          this.errors = ['No se pudo guardar el producto.'];
+          this.isSaving = false;
+        }
+      });
     } else {
-      this.productsService.createProduct(productData).subscribe(resp => {
-        this.producto = resp
-      })
+      this.productsService.createProduct(productData).subscribe({
+        next: (resp) => {
+          this.producto = resp;
+          this.navigateToProductos();
+        },
+        error: () => {
+          this.errors = ['No se pudo crear el producto.'];
+          this.isSaving = false;
+        }
+      });
     }
-    this.navigateToProductos()
   }
 
   navigateToProductos(){

@@ -12,48 +12,50 @@
     <div class="col-2 border-end">
       <ul class="nav flex-column">
         <li class="nav-item mt-3 mb-2">
-          <a class="nav-link text-secondary" href="/dashboard"
+          <a class="nav-link text-secondary" routerLink="/dashboard"
             ><i class="bi bi-house-door-fill"></i> Dashboard</a
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" href="/orders"
+          <a class="nav-link text-secondary" routerLink="/orders"
             ><i class="bi bi-box2-fill"></i> Pedidos</a
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" href="/products"
+          <a class="nav-link text-secondary" routerLink="/products"
             ><i class="bi bi-archive-fill"></i> Productos</a
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" href="/clients"
+          <a class="nav-link text-secondary" routerLink="/clients"
             ><i class="bi bi-person-fill"></i> Clientes</a
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" href="/categories"
+          <a class="nav-link text-secondary" routerLink="/categories"
             ><i class="bi bi-funnel-fill"></i> Categorias</a
           >
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link" href="shopping-list"
+          <a class="nav-link" routerLink="/shopping-cart"
             ><i class="bi bi-cart-fill"></i> Carrito de la compra</a
           >
         </li>
       </ul>
     </div>
+
     <div class="col-10 bg-light d-flex flex-column" style="min-height: 0">
       <main class="flex-grow-1 d-flex flex-column justify-content-start" style="min-height: 0">
         <div class="container mt-4 flex-grow-1 d-flex flex-column" style="min-height: 0">
-          <h5 class="ms-2">Gestión de Lista de Compras</h5>
+          <h2 class="ms-2 fw-bold text-dark">Gestion de Lista de Compras</h2>
+
           <div class="table-responsive mt-4">
-            <table class="table table-bordered align-middle bg-white">
+            <table class="table table-bordered align-middle bg-white table-hover">
               <thead class="table-light">
                 <tr>
                   <th style="width: 50px; text-align: center">Seleccionar</th>
                   <th>Producto</th>
-                  <th>Categoría</th>
+                  <th>Categoria</th>
                   <th>Cantidad</th>
                   <th>Prioridad</th>
                 </tr>
@@ -72,24 +74,24 @@
                         @if (item.producto.urlImagen) {
                           <img
                             [src]="item.producto.urlImagen"
-                            class="rounded me-2"
-                            style="width: 40px; height: 40px; object-fit: cover"
+                            class="rounded me-3 border"
+                            style="width: 60px; height: 60px; object-fit: cover" 
                           />
-                        }
-                        <span>{{ item.producto.nombre }}</span>
+                          }
+                        <span class="fs-6 fw-medium">{{ item.producto.nombre }}</span>
                       </div>
                     </td>
 
-                    <td>{{ item.producto.precio }} €</td>
+                    <td class="fs-6">{{ item.producto.precio }} &euro;</td>
 
                     <td>
                       <input
                         type="number"
-                        class="form-control"
+                        class="form-control form-control-lg"
                         min="1"
                         [(ngModel)]="item.cantidad"
                         (change)="onLineChange(item)"
-                        style="width: 80px"
+                        style="width: 90px"
                       />
                     </td>
 
@@ -105,47 +107,43 @@
                       </select>
                     </td>
 
-                    <td class="fw-bold">
-                      {{ item.producto.precio * item.cantidad }} €
-                    </td>
+                    <td class="fw-bold fs-6">{{ item.producto.precio * item.cantidad }} &euro;</td>
                   </tr>
                 } @empty {
                   <tr>
-                    <td colspan="6" class="text-center py-5 text-muted">La lista está vacía</td>
+                    <td colspan="6" class="text-center py-5 text-muted fs-5">La lista esta vacia</td>
                   </tr>
                 }
               </tbody>
-
-              @if (shoppingList!.length > 0) {
-                <div
-                  class="d-flex flex-column align-items-end mt-4 ms-auto"
-                  style="max-width: 400px"
-                >
-                  <div class="w-100 mb-1 text-end">
-                    <span class="fw-semibold">Subtotal:</span>
-                    <span class="ms-2">{{ subtotal }} €</span>
-                  </div>
-                  <div class="w-100 mb-1 text-end">
-                    <span class="fw-semibold">IVA (21%):</span>
-                    <span class="ms-2">{{ iva }} €</span>
-                  </div>
-                  <div class="w-100 border-top pt-2 text-end">
-                    <span class="fw-bold fs-5">Total:</span>
-                    <span class="fw-bold fs-5 ms-2 text-primary">{{
-                      total
-                    }} €</span>
-                  </div>
-
-                  <button class="btn btn-primary mt-3 btn-lg w-100" (click)="processOrder()">
-                    <i class="bi bi-cart-check"></i> Confirmar Pedido
-                  </button>
-                </div>
-              }
             </table>
           </div>
-          
-            
-          </div>
+
+          @if (shoppingList!.length > 0) {
+            <div class="ms-auto mt-4 col-12 col-md-8 col-lg-6">
+              <div class="border rounded bg-white p-4 shadow-sm">
+                <div class="row align-items-center mb-2 fs-5 text-secondary">
+                  <div class="col-12">Subtotal:</div>
+                  <div class="col-12 text-end">{{ subtotal | number:'1.2-2' }} &euro;</div>
+                </div>
+                <div class="row align-items-center mb-3 fs-5 text-secondary">
+                  <div class="col-6">IVA (21%):</div>
+                  <div class="col-6 text-end">{{ iva | number:'1.2-2' }} &euro;</div>
+                </div>
+                
+                <div class="row align-items-center border-top pt-3 mt-2">
+                  <div class="col-5 fw-bold fs-2 text-dark">Total:</div>
+                  <div class="col-7 text-end fw-bolder fs-2 text-primary">
+                    {{ total | number:'1.2-2' }} &euro;
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary mt-3 btn-lg w-100 py-3 fw-bold fs-5 shadow-sm" (click)="processOrder()">
+                <i class="bi bi-cart-check me-2"></i> Confirmar Pedido
+              </button>
+            </div>
+          }
+        </div>
       </main>
     </div>
   </div>

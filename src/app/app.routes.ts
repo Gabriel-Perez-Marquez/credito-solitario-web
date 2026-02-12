@@ -11,9 +11,11 @@ import { UsersCreatePage } from './pages/users-create-page/users-create-page';
 import { CategoriesCreatePage } from './pages/categories-create-page/categories-create-page';
 
 export const routes: Routes = [
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginPage},
     { path: 'dashboard', component: DashboardPage},
     { path: 'orders', component: OrdersPage},
+    { path: 'pedidos', redirectTo: '/orders', pathMatch: 'full' },
     { path: 'products', component: ProductsPage},
     { path: 'products/edit/:id', component: ProductsCreatePage},
     { path: 'products/add', component: ProductsCreatePage},
@@ -24,5 +26,5 @@ export const routes: Routes = [
     { path: 'categories/create', component: CategoriesCreatePage},
     { path: 'categories/edit/:id', component: CategoriesCreatePage},
     { path: 'shopping-cart', component: ShoppingListPage},
-    { path: '**', redirectTo: '/login', pathMatch: 'full' }
+    { path: '**', redirectTo: '/login' }
 ];

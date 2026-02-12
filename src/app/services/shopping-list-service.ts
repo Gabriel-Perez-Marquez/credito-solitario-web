@@ -2,13 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LineaVentaInterface } from '../interfaces/linea-venta-interface';
+import { environment } from '../../environments/environment';
+
+interface AddToCartResponse {
+  message: string;
+  data: LineaVentaInterface;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingListService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/shopping-list';
+  private apiUrl = `${environment.apiBaseUrl}/shopping-list`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,8 +24,8 @@ export class ShoppingListService {
   }
 
 
-  addItem(producto_id: number, cantidad: number = 1, prioridad: string = 'Media'): Observable<LineaVentaInterface> {
-    return this.http.post<LineaVentaInterface>(this.apiUrl, { producto_id, cantidad, prioridad });
+  addItem(producto_id: number, cantidad: number = 1, prioridad: string = 'Media'): Observable<AddToCartResponse> {
+    return this.http.post<AddToCartResponse>(this.apiUrl, { producto_id, cantidad, prioridad });
   }
 
 
@@ -35,6 +41,16 @@ export class ShoppingListService {
 
   confirmRestock(): Observable<any> {
     return this.http.post(`${this.apiUrl}/confirm-restock`, {});
+  }
+
+  confirmOrder(payload: {
+    cliente_id?: number;
+    estado_id?: number;
+    nombre?: string;
+    direccionEntrega?: string;
+    fechaEntrega?: string;
+  } = {}): Observable<any> {
+    return this.http.post(`${this.apiUrl}/confirm-order`, payload);
   }
   
 }

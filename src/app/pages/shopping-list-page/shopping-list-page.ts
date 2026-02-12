@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { ShoppingListService } from '../../services/shopping-list-service';
 import { LineaVentaInterface } from '../../interfaces/linea-venta-interface';
 import { FormsModule } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list-page',
-  imports: [FormsModule],
+  imports: [FormsModule, DecimalPipe, RouterLink],
   templateUrl: './shopping-list-page.html',
   styleUrl: './shopping-list-page.css',
 })
@@ -59,12 +61,21 @@ export class ShoppingListPage {
   }
 
   processOrder() {
-    this.shoppingService.confirmRestock().subscribe(() => {
-
-      alert('Pedido confirmado y stock actualizado.');
-      this.shoppingList = [];
-      this.calculateTotals();
-      
+    this.shoppingService.confirmOrder().subscribe({
+      next: (resp) => {
+        const pedidoId = resp?.data?.id;
+        alert(
+          pedidoId
+            ? `Pedido #${pedidoId} creado correctamente.`
+            : 'Pedido creado correctamente.'
+        );
+        this.shoppingList = [];
+        this.calculateTotals();
+      },
+      error: (err) => {
+        const message = err?.error?.message || 'No se pudo crear el pedido';
+        alert(message);
+      },
     });
   }
 }

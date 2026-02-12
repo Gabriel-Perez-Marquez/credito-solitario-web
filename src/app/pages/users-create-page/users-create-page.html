@@ -12,32 +12,32 @@
 		<div class="col-2 border-end">
 			<ul class="nav flex-column">
 				<li class="nav-item mt-3 mb-2">
-					<a class="nav-link text-secondary" href="/dashboard"
+					<a class="nav-link text-secondary" routerLink="/dashboard"
 						><i class="bi bi-house-door-fill"></i> Dashboard</a
 					>
 				</li>
 				<li class="nav-item mb-2">
-					<a class="nav-link text-secondary" href="/orders"
+					<a class="nav-link text-secondary" routerLink="/orders"
 						><i class="bi bi-box2-fill"></i> Pedidos</a
 					>
 				</li>
 				<li class="nav-item mb-2">
-					<a class="nav-link text-secondary" href="/products"
+					<a class="nav-link text-secondary" routerLink="/products"
 						><i class="bi bi-archive-fill"></i> Productos</a
 					>
 				</li>
 				<li class="nav-item mb-2">
-					<a class="nav-link" href="/users"
+					<a class="nav-link" routerLink="/clients"
 						><i class="bi bi-person-fill"></i> Usuarios</a
 					>
 				</li>
 				<li class="nav-item mb-2">
-					<a class="nav-link text-secondary" href="/categories"
+					<a class="nav-link text-secondary" routerLink="/categories"
 						><i class="bi bi-funnel-fill"></i> Categorias</a
 					>
 				</li>
 				<li class="nav-item mb-2">
-					<a class="nav-link text-secondary" href="shopping-cart"
+					<a class="nav-link text-secondary" routerLink="/shopping-cart"
 						><i class="bi bi-cart-fill"></i> Carrito de la compra</a
 					>
 				</li>
@@ -47,7 +47,20 @@
 			<main class="flex-grow-1 d-flex flex-column justify-content-start" style="min-height: 0;">
 				<div class="container mt-4 flex-grow-1 d-flex flex-column align-items-center" style="min-height: 0;">
 					<h5 class="ms-2 mb-4">Crear nuevo usuario</h5>
-					<form class="bg-white p-4 rounded shadow-sm" style="max-width: 600px; width: 100%;" [formGroup]="createForm" novalidate>
+					<form
+						class="bg-white p-4 rounded shadow-sm"
+						style="max-width: 600px; width: 100%;"
+						[formGroup]="createForm"
+						(ngSubmit)="validateForm()"
+						novalidate
+					>
+						@if (errors.length > 0) {
+							<div class="alert alert-danger">
+								@for (error of errors; track error) {
+									<div>{{ error }}</div>
+								}
+							</div>
+						}
 						<div class="row mb-3">
 							<div class="col">
 								<label for="nombre" class="form-label">Nombre</label>
@@ -101,7 +114,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-end mt-4">
-							<button type="submit" (click)="validateForm()" class="btn btn-success">
+							<button type="submit" class="btn btn-success" [disabled]="isSaving">
 								<i class="bi bi-check-circle-fill"></i> Guardar usuario
 							</button>
 						</div>
@@ -111,3 +124,4 @@
 		</div>
 	</div>
 </div>
+

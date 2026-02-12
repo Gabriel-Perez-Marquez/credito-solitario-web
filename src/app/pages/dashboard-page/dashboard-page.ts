@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesResponse } from '../../interfaces/categorias.interface';
 import { CategoriesService } from '../../services/categories-service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })
