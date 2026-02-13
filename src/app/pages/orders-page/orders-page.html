@@ -3,47 +3,37 @@
   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
 />
 
-<div class="container-fluid m-0 min-vh-100 d-flex flex-column" style="min-height: 100vh">
+<div class="container-fluid m-0 min-vh-100 d-flex flex-column">
   <div class="row flex-shrink-0">
-    <div class="p-4 col-2 border-bottom-0">Credito</div>
-    <div class="p-4 col-10 border-bottom">Pedidos</div>
+    <div class="p-3 p-md-4 col-12 col-md-3 col-lg-2 border-bottom-0">Credito</div>
+    <div class="p-3 p-md-4 col-12 col-md-9 col-lg-10 border-bottom">Pedidos</div>
   </div>
-  <div class="row flex-grow-1" style="flex: 1 1 auto; min-height: 0">
-    <div class="col-2 border-end">
+  <div class="row flex-grow-1 h-100">
+    <div class="col-12 col-md-3 col-lg-2 border-end">
       <ul class="nav flex-column">
         <li class="nav-item mt-3 mb-2">
-          <a class="nav-link text-secondary" routerLink="/dashboard"
-            ><i class="bi bi-house-door-fill"></i> Dashboard</a
-          >
+          <a class="nav-link text-secondary" routerLink="/dashboard"><i class="bi bi-house-door-fill"></i> Dashboard</a>
         </li>
         <li class="nav-item mb-2">
           <a class="nav-link" routerLink="/orders"><i class="bi bi-box2-fill"></i> Pedidos</a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/products"
-            ><i class="bi bi-archive-fill"></i> Productos</a
-          >
+          <a class="nav-link text-secondary" routerLink="/products"><i class="bi bi-archive-fill"></i> Productos</a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/clients"
-            ><i class="bi bi-person-fill"></i> Clientes</a
-          >
+          <a class="nav-link text-secondary" routerLink="/clients"><i class="bi bi-person-fill"></i> Clientes</a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/categories"
-            ><i class="bi bi-funnel-fill"></i> Categorias</a
-          >
+          <a class="nav-link text-secondary" routerLink="/categories"><i class="bi bi-funnel-fill"></i> Categorias</a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/shopping-cart"
-            ><i class="bi bi-cart-fill"></i> Carrito de la compra</a
-          >
+          <a class="nav-link text-secondary" routerLink="/shopping-cart"><i class="bi bi-cart-fill"></i> Carrito de la compra</a>
         </li>
       </ul>
     </div>
-    <div class="col-10 bg-light d-flex flex-column" style="min-height: 0">
-      <main class="flex-grow-1 d-flex flex-column justify-content-start" style="min-height: 0">
-        <div class="container mt-4 flex-grow-1 d-flex flex-column" style="min-height: 0">
+    <div class="col-12 col-md-9 col-lg-10 bg-light d-flex flex-column">
+      <main class="flex-grow-1 d-flex flex-column justify-content-start">
+        <div class="container py-4 flex-grow-1 d-flex flex-column">
           <h5 class="ms-2">Gestion de Pedidos</h5>
           @if (errorMessage) {
             <div class="alert alert-danger mt-3" role="alert">
@@ -86,19 +76,14 @@
                       </td>
                       <td>#{{ order.id }}</td>
                       <td>
-                        <span
-                          [class]="getStatusClass(order.estado?.nombre)"
-                          style="font-size: 1em; padding: 0.5em 1em"
-                        >
+                        <span [ngClass]="[getStatusClass(order.estado?.nombre), 'fs-6', 'px-3', 'py-2', 'd-inline-block']">
                           {{ order.estado?.nombre || 'Sin estado' }}
                         </span>
                       </td>
                       <td><span class="text-muted">No disponible</span></td>
                       <td>{{ order.fechaPedido | date:'dd/MM/yyyy' }}</td>
                       <td>
-                        <span class="text-success fw-semibold"
-                          >{{ getOrderTotal(order) | number:'1.2-2' }} &euro;</span
-                        >
+                        <span class="text-success fw-semibold">{{ getOrderTotal(order) | number:'1.2-2' }} &euro;</span>
                       </td>
                       <td>
                         <button class="btn btn-outline-secondary btn-sm" disabled>
@@ -122,4 +107,3 @@
     </div>
   </div>
 </div>
-
