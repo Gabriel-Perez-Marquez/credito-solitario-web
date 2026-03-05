@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products-service';
 import { Product } from '../../interfaces/product-interface';
 import { RouterLink } from '@angular/router';
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './products-page.html',
   styleUrl: './products-page.css',
 })
-export class ProductsPage {
+export class ProductsPage implements OnInit{
 
   products: Product[] = [];
   searchTerm = '';
