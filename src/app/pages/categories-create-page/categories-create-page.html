@@ -12,22 +12,22 @@
         <div class="col-2 border-end">
             <ul class="nav flex-column">
                 <li class="nav-item mt-3 mb-2">
-                    <a class="nav-link text-secondary" href="/dashboard"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                    <a class="nav-link text-secondary" routerLink="/dashboard"><i class="bi bi-house-door-fill"></i> Dashboard</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link text-secondary" href="/orders"><i class="bi bi-box2-fill"></i> Pedidos</a>
+                    <a class="nav-link text-secondary" routerLink="/orders"><i class="bi bi-box2-fill"></i> Pedidos</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link text-secondary" href="/products"><i class="bi bi-archive-fill"></i> Productos</a>
+                    <a class="nav-link text-secondary" routerLink="/products"><i class="bi bi-archive-fill"></i> Productos</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link text-secondary" href="/clients"><i class="bi bi-person-fill"></i> Clientes</a>
+                    <a class="nav-link text-secondary" routerLink="/clients"><i class="bi bi-person-fill"></i> Clientes</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link" href="/categories"><i class="bi bi-funnel-fill"></i> Categorías</a>
+                    <a class="nav-link" routerLink="/categories"><i class="bi bi-funnel-fill"></i> Categorías</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="nav-link text-secondary" href="shopping-cart"><i class="bi bi-cart-fill"></i> Carrito</a>
+                    <a class="nav-link text-secondary" routerLink="/shopping-cart"><i class="bi bi-cart-fill"></i> Carrito</a>
                 </li>
             </ul>
         </div>
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success" [disabled]="isSaving">
                                 <i class="bi bi-check-circle-fill"></i> Guardar categoría
                             </button>
                         </div>
@@ -89,3 +89,4 @@
         </div>
     </div>
 </div>
+

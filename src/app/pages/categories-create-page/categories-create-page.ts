@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoriesService } from '../../services/categories-service';
 import { Categoria } from '../../interfaces/categorias.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories-create-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './categories-create-page.html',
   styleUrl: './categories-create-page.css',
 })
@@ -21,6 +21,7 @@ export class CategoriesCreatePage implements OnInit{
 
   
   errors: string[] = [];
+  isSaving = false;
   
   categoria: Categoria | null = null
 
@@ -66,20 +67,30 @@ export class CategoriesCreatePage implements OnInit{
   }
 
   saveCategory(){
+    this.isSaving = true;
     const nombre = this.createForm.value.formControlName ?? '';
     const activa = this.createForm.value.formControlActiva ?? true;
 
     if(this.categoryId){
-      this.categoriaService.editCategory(this.categoryId, nombre, activa).subscribe();
+      this.categoriaService.editCategory(this.categoryId, nombre, activa).subscribe({
+        next: () => this.navigateToCategories(),
+        error: () => {
+          this.errors = ['No se pudo guardar la categoria.'];
+          this.isSaving = false;
+        }
+      });
     }else {
-      this.categoriaService.createCategory(nombre, activa).subscribe(resp => {
-        this.categoria = resp
+      this.categoriaService.createCategory(nombre, activa).subscribe({
+        next: (resp) => {
+          this.categoria = resp;
+          this.navigateToCategories();
+        },
+        error: () => {
+          this.errors = ['No se pudo crear la categoria.'];
+          this.isSaving = false;
+        }
       });
     }
-
-    this.navigateToCategories()
-
-    
   }
 
   navigateToCategories() {

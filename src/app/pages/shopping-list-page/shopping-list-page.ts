@@ -1,48 +1,81 @@
-import { Component, OnInit } from '@angular/core';
-import { ShoppingList } from '../../interfaces/shopping-list';
-import { CarritoService } from '../../services/carrito-service';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ShoppingListService } from '../../services/shopping-list-service';
+import { LineaVentaInterface } from '../../interfaces/linea-venta-interface';
 import { FormsModule } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list-page',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, DecimalPipe, RouterLink],
   templateUrl: './shopping-list-page.html',
   styleUrl: './shopping-list-page.css',
 })
-export class ShoppingListPage implements OnInit{
-
-  saleLines: ShoppingList = [];
-  totalBase: number = 0;
+export class ShoppingListPage {
+  
+  shoppingList: LineaVentaInterface[] | null = null;
+  subtotal: number = 0;
   iva: number = 0;
   total: number = 0;
 
-  constructor(private carritoService: CarritoService) {}
+  constructor(private shoppingService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.carritoService.obtenerCarrito().subscribe(resp => {
-      this.saleLines = resp;
+    this.loadData();
+  }
+
+  loadData() {
+    this.shoppingService.getShoppingList().subscribe(resp => {
+       
+      this.shoppingList = resp;
+      this.calculateTotals();
+      
     });
   }
-  
+
   calculateTotals() {
-    this.totalBase = 0;
+    this.subtotal = this.shoppingList!.reduce((acc, line) => {
+      const precio = Number(line.producto.precio) || 0;
+      return acc + (precio * line.cantidad);
+    }, 0);
+
+    this.iva = this.subtotal * 0.21;
+    this.total = this.subtotal + this.iva;
+  }
+
+  onLineChange(line: LineaVentaInterface) {
+    if (line.cantidad < 1) line.cantidad = 1;
     
-    for (const line of this.saleLines) {
-      const precio = Number(line.producto.precio); 
-      const cantidad = Number(line.cantidad);
-      
-      this.totalBase += precio * cantidad;
-    }
-
-    this.iva = this.totalBase * 0.21;
-    this.total = this.totalBase + this.iva;
+    this.shoppingService.updateItem(line.id, line.cantidad, line.prioridad).subscribe(() => {
+      this.calculateTotals()
+    });
   }
 
-  getSubtotal(line: any): number {
-    const precio = Number(line.producto.precio);
-    const cantidad = Number(line.cantidad);
-    return precio * cantidad;
+  deleteLine(id: number) {
+    if(!confirm('¿Estás seguro de eliminar este producto?')) return;
+
+    this.shoppingService.deleteItem(id).subscribe(() => {
+      this.shoppingList = this.shoppingList!.filter(l => l.id !== id);
+      this.calculateTotals();
+    });
   }
 
+  processOrder() {
+    this.shoppingService.confirmOrder().subscribe({
+      next: (resp) => {
+        const pedidoId = resp?.data?.id;
+        alert(
+          pedidoId
+            ? `Pedido #${pedidoId} creado correctamente.`
+            : 'Pedido creado correctamente.'
+        );
+        this.shoppingList = [];
+        this.calculateTotals();
+      },
+      error: (err) => {
+        const message = err?.error?.message || 'No se pudo crear el pedido';
+        alert(message);
+      },
+    });
+  }
 }
