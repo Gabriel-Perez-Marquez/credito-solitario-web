@@ -68,4 +68,21 @@ export class OrdersPage {
     return 'badge bg-secondary bg-opacity-25 text-secondary';
   }
 
+  markAsFinished(order: Pedido) {
+    if (!confirm(`¿Estás seguro de marcar el pedido #${order.id} como Finalizado?`)) return;
+
+    
+    const ID_ESTADO_FINALIZADO = 2; 
+
+    this.ordersService.updateOrderStatus(order.id, ID_ESTADO_FINALIZADO).subscribe({
+      next: () => {
+        alert('Pedido finalizado correctamente. El cliente recibirá una notificación.');
+        this.loadOrders();
+      },
+      error: () => {
+        this.errorMessage = 'Error al actualizar el estado del pedido.';
+      }
+    });
+  }
+
 }

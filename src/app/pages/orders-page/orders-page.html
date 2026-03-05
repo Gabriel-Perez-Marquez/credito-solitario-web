@@ -51,7 +51,7 @@
                   <th>Tarjeta</th>
                   <th>Fecha</th>
                   <th>Total</th>
-                  <th>Factura</th>
+                  <th class="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,9 +85,15 @@
                       <td>
                         <span class="text-success fw-semibold">{{ getOrderTotal(order) | number:'1.2-2' }} &euro;</span>
                       </td>
-                      <td>
+                     <td class="text-center">
+                        @if (order.estado?.nombre !== 'Finalizado') {
+                          <button class="btn btn-success btn-sm me-2" (click)="markAsFinished(order)" title="Finalizar Pedido">
+                            <i class="bi bi-check-circle-fill"></i> Finalizar
+                          </button>
+                        }
+                        
                         <button class="btn btn-outline-secondary btn-sm" disabled>
-                          <i class="bi bi-download"></i> Sin factura
+                          <i class="bi bi-download"></i>
                         </button>
                       </td>
                     </tr>

@@ -19,4 +19,8 @@ export class OrdersService {
   getOrder(id: number): Observable<Pedido> {
     return this.http.get<Pedido>(`${this.apiUrl}/${id}`);
   }
+
+  updateOrderStatus(id: number, estado_id: number): Observable<Pedido> {
+    return this.http.put<Pedido>(`${this.apiUrl}/${id}`, { estado_id });
+  }
 }
