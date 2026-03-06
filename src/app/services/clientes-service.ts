@@ -34,9 +34,18 @@ export class ClientesService {
     dni: string,
     saldo: number,
     activo: boolean,
-    direccion_id: number
+    calle: string,
+    numCasa: string,
+    municipio: string,
+    provincia: string,
+    password?: string
   ): Observable<Cliente> {
-    const body = { nombre, apellidos, telefono, email, dni, saldo, activo, direccion_id };
+    const body = { nombre, apellidos, telefono, email, dni, saldo, activo, calle, numCasa, municipio, provincia, password };
+
+    if (password && password.trim() !== '') {
+      body.password = password;
+    }
+
     return this.http.put<Cliente>(`${this.apiUrl}/${id}`, body);
   }
 

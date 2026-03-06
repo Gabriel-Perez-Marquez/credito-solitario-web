@@ -3,12 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Categoria } from '../../interfaces/categorias.interface';
 import { ProductsService } from '../../services/products-service';
 import { CategoriesService } from '../../services/categories-service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Product } from '../../interfaces/product-interface';
 
 @Component({
   selector: 'app-products-create-page',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './products-create-page.html',
   styleUrl: './products-create-page.css',
 })

@@ -3,13 +3,13 @@ import { ShoppingListService } from '../../services/shopping-list-service';
 import { LineaVentaInterface } from '../../interfaces/linea-venta-interface';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CategoriesService } from '../../services/categories-service';
 import { Categoria } from '../../interfaces/categorias.interface';
 
 @Component({
   selector: 'app-shopping-list-page',
-  imports: [FormsModule, DecimalPipe, RouterLink],
+  imports: [FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './shopping-list-page.html',
   styleUrl: './shopping-list-page.css',
 })
@@ -20,6 +20,8 @@ export class ShoppingListPage {
   iva: number = 0;
   total: number = 0;
   categorias: Categoria[] = [];
+  successMessage: string | null = null;
+
 
   constructor(private shoppingService: ShoppingListService, private categoriaService: CategoriesService) {}
 
@@ -74,13 +76,11 @@ export class ShoppingListPage {
     this.shoppingService.confirmOrder().subscribe({
       next: (resp) => {
         const pedidoId = resp?.data?.id;
-        alert(
-          pedidoId
-            ? `Pedido #${pedidoId} creado correctamente.`
-            : 'Pedido creado correctamente.'
-        );
         this.shoppingList = [];
         this.calculateTotals();
+        this.successMessage = pedidoId
+            ? `Pedido #${pedidoId} creado correctamente.`
+            : 'Pedido creado correctamente.';
       },
       error: (err) => {
         const message = err?.error?.message || 'No se pudo crear el pedido';
@@ -95,4 +95,6 @@ export class ShoppingListPage {
     const cat = this.categorias.find(c => c.id === id);
     return cat ? cat.nombre : 'Cargando...';
   }
+
+  
 }

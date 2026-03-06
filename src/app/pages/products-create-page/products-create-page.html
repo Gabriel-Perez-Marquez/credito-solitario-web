@@ -1,227 +1,185 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
 
-<div class="container-fluid m-0 d-flex flex-column" style="height: 100vh;">
-  <div class="row flex-shrink-0">
-    <div class="p-4 col-2 border-bottom-0">Crédito</div>
-    <div class="p-4 col-10 border-bottom">Gestión de Productos</div>
+<div class="container-fluid m-0 min-vh-100 d-flex flex-column" style="min-height: 100vh; background-color: #F5F5F7;">
+  <div class="row flex-shrink-0 bg-white">
+    <div class="p-4 col-2 border-bottom-0 fw-bold fs-5 text-success">Crédito Solidario</div>
+    <div class="p-4 col-10 border-bottom d-flex justify-content-between align-items-center">
+      <span class="fs-5 fw-semibold text-secondary">Gestión de Inventario</span>
+      <div>
+        <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 rounded-pill">
+          <i class="bi bi-circle-fill text-success" style="font-size: 8px;"></i> Edición de Catálogo
+        </span>
+      </div>
+    </div>
   </div>
-  <div class="row flex-grow-1">
-    <div class="col-2 border-end">
+
+  <div class="row flex-grow-1" style="flex: 1 1 auto; min-height: 0;">
+    <div class="col-2 border-end bg-white">
       <ul class="nav flex-column">
         <li class="nav-item mt-3 mb-2">
-          <a class="nav-link text-secondary" routerLink="/dashboard"
-            ><i class="bi bi-house-door-fill"></i> Dashboard</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/dashboard" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaDashboard.isActive" #rlaDashboard="routerLinkActive">
+            <i class="bi bi-house-door-fill"></i> Dashboard
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/orders"
-            ><i class="bi bi-box2-fill"></i> Pedidos</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/orders" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaOrders.isActive" #rlaOrders="routerLinkActive">
+            <i class="bi bi-box2-fill"></i> Pedidos
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link" routerLink="/products"
-            ><i class="bi bi-archive-fill"></i> Productos</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/products" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaProducts.isActive" #rlaProducts="routerLinkActive">
+            <i class="bi bi-archive-fill"></i> Productos
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/clients"
-            ><i class="bi bi-person-fill"></i> Clientes</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/clients" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaClients.isActive" #rlaClients="routerLinkActive">
+            <i class="bi bi-person-fill"></i> Usuarios
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/categories"
-            ><i class="bi bi-funnel-fill"></i> Categorias</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/categories" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaCategories.isActive" #rlaCategories="routerLinkActive">
+            <i class="bi bi-funnel-fill"></i> Categorías
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/shopping-cart"
-            ><i class="bi bi-cart-fill"></i> Carrito de la compra</a
-          >
+          <a class="nav-link mx-2 hover-bg" routerLink="/shopping-cart" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaCart.isActive" #rlaCart="routerLinkActive">
+            <i class="bi bi-cart-fill"></i> Reposición
+          </a>
         </li>
       </ul>
     </div>
-    
-    <div class="col-10 bg-light">
-      <main>
-        <div class="container mt-4 pb-4">
-          
-          <div class="row justify-content-center">
+
+    <div class="col-10 p-4 overflow-auto">
+      <div class="container-fluid">
+        
+        <div class="d-flex align-items-center mb-4">
+          <a routerLink="/products" class="btn btn-light text-secondary me-3 rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h3 class="fw-bold text-dark mb-0">Guardar Producto</h3>
+            <p class="text-muted mb-0">Completa la información técnica y comercial del artículo.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-10 col-xl-9">
+            
             @if (errors.length > 0) {
-              <div class="alert alert-danger w-100" style="max-width: 500px;">
-                <ul class="mb-0">
+              <div class="alert alert-danger border-0 border-start border-danger border-4 shadow-sm mb-4">
+                <ul class="mb-0 small">
                   @for (error of errors; track $index) {
                     <li>{{ error }}</li>
                   }
                 </ul>
               </div>
             }
-            <div class="col-lg-8">
-              
-              @if(errors.length > 0) {
-                <div class="alert alert-danger">
-                  @for(err of errors; track $index) { <div>{{ err }}</div> }
-                </div>
-              }
 
-              <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
-                  
-                  <h4 class="mb-0">
-                    <i class="bi"></i>
-                    Guardar Producto
-                  </h4>
-                  
-                </div>
-                
-                <div class="card-body p-4">
-                  <form [formGroup]="productForm" (ngSubmit)="validateForm()">
-                    <div class="row">
-                      <div class="col-md-6">
-                        
-                        <div class="mb-3">
-                          <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
-                          <input 
-                            type="text" 
-                            class="form-control" 
-                            id="nombre" 
-                            formControlName="nombre"
-                            placeholder="Ej: Laptop HP" 
-                            [class.is-invalid]="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched"
-                          >
-                          <div class="invalid-feedback">El nombre es obligatorio.</div>
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+              <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-semibold text-secondary">
+                  Ficha del Producto
+                </h5>
+              </div>
+
+              <div class="card-body p-4">
+                <form [formGroup]="productForm" (ngSubmit)="validateForm()">
+                  <div class="row g-4">
+                    
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label text-muted fw-semibold small">Nombre del Producto <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control bg-light border-0 py-2" formControlName="nombre" placeholder="Ej: Aceite de Oliva 1L">
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label text-muted fw-semibold small">URL de la Imagen <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-0 text-muted"><i class="bi bi-link-45deg"></i></span>
+                          <input type="url" class="form-control bg-light border-0 py-2" formControlName="urlImagen" placeholder="https://...">
                         </div>
-
-                        <div class="mb-3">
-                          <label for="urlImagen" class="form-label">URL Imagen <span class="text-danger">*</span></label>
-                          <input 
-                            type="url" 
-                            class="form-control" 
-                            id="urlImagen" 
-                            formControlName="urlImagen"
-                            placeholder="https://ejemplo.com/imagen.jpg" 
-                            [class.is-invalid]="productForm.get('urlImagen')?.invalid && productForm.get('urlImagen')?.touched"
-                          >
-                          <div class="invalid-feedback">La URL de la imagen es obligatoria.</div>
-                          
+                        
+                        <div class="mt-3 p-2 bg-light rounded-3 text-center border border-dashed" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
                           @if(productForm.get('urlImagen')?.value) {
-                            <div class="mt-2 text-center">
-                                <img [src]="productForm.get('urlImagen')?.value" alt="Preview" style="height: 80px; border-radius: 5px;" 
-                                     onerror="this.style.display='none'">
+                            <img [src]="productForm.get('urlImagen')?.value" alt="Preview" class="rounded shadow-sm" style="max-height: 100px; max-width: 100%; object-fit: contain;" onerror="this.src='assets/images/no-image.png'">
+                          } @else {
+                            <div class="text-muted small">
+                              <i class="bi bi-image d-block fs-3 mb-1"></i>
+                              Vista previa de imagen
                             </div>
                           }
                         </div>
+                      </div>
 
-                        <div class="mb-3">
-                          <label for="stockInicial" class="form-label">Stock <span class="text-danger">*</span></label>
-                          <input 
-                            type="number" 
-                            class="form-control" 
-                            id="stockInicial" 
-                            formControlName="stock"
-                            placeholder="0" 
-                            min="0"
-                            [class.is-invalid]="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
-                          >
-                          <div class="invalid-feedback">El stock es obligatorio y debe ser positivo.</div>
+                      <div class="row">
+                        <div class="col-6">
+                          <label class="form-label text-muted fw-semibold small">Stock <span class="text-danger">*</span></label>
+                          <input type="number" class="form-control bg-light border-0 py-2" formControlName="stock" placeholder="0">
                         </div>
-
-                        <div class="mb-3">
-                          <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                          <select class="form-select" id="categoria" formControlName="categoria_id"
-                                  [class.is-invalid]="productForm.get('categoria_id')?.invalid && productForm.get('categoria_id')?.touched">
-                            <option [ngValue]="null" disabled>Selecciona una categoría...</option>
-                            
+                        <div class="col-6">
+                          <label class="form-label text-muted fw-semibold small">Categoría <span class="text-danger">*</span></label>
+                          <select class="form-select bg-light border-0 py-2" formControlName="categoria_id">
+                            <option [ngValue]="null" disabled>Seleccionar...</option>
                             @for (cat of categories; track cat.id) {
-                                <option [ngValue]="cat.id">{{ cat.nombre }}</option>
+                              <option [ngValue]="cat.id">{{ cat.nombre }}</option>
                             }
                           </select>
-                          <div class="invalid-feedback">Selecciona una categoría válida.</div>
                         </div>
                       </div>
+                    </div>
 
-                      <div class="col-md-6">
-                        
-                        <div class="mb-3">
-                          <label for="precio" class="form-label">Precio <span class="text-danger">*</span></label>
-                          <div class="input-group has-validation">
-                            <span class="input-group-text">$</span>
-                            <input 
-                              type="number" 
-                              class="form-control" 
-                              id="precio" 
-                              formControlName="precio"
-                              placeholder="0.00" 
-                              step="0.01"
-                              [class.is-invalid]="productForm.get('precio')?.invalid && productForm.get('precio')?.touched"
-                            >
-                            <div class="invalid-feedback">El precio es obligatorio.</div>
-                          </div>
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="descuento" class="form-label">Descuento (%)</label>
+                    <div class="col-md-6">
+                      <div class="row mb-3">
+                        <div class="col-6">
+                          <label class="form-label text-muted fw-semibold small">Precio (pts) <span class="text-danger">*</span></label>
                           <div class="input-group">
-                            <input 
-                              type="number" 
-                              class="form-control" 
-                              id="descuento" 
-                              formControlName="descuento"
-                              placeholder="0" 
-                              min="0" 
-                              max="100"
-                            >
-                            <span class="input-group-text">%</span>
+                            <input type="number" class="form-control bg-light border-0 py-2" formControlName="precio" placeholder="0.00">
                           </div>
                         </div>
-
-                        <div class="mb-3">
-                          <label for="descripcion" class="form-label">Descripción</label>
-                          <textarea 
-                            class="form-control" 
-                            id="descripcion" 
-                            formControlName="descripcion"
-                            rows="5" 
-                            placeholder="Descripción del producto..."
-                          ></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                          <div class="form-check">
-                            <input 
-                              class="form-check-input" 
-                              type="checkbox" 
-                              id="enVenta"
-                              formControlName="enVenta"
-                            >
-                            <label class="form-check-label" for="enVenta">
-                              En venta (Activo)
-                            </label>
+                        <div class="col-6">
+                          <label class="form-label text-muted fw-semibold small">Descuento (%)</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control bg-light border-0 py-2" formControlName="descuento" placeholder="0">
+                            <span class="input-group-text bg-light border-0 text-muted">%</span>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="d-flex gap-2 justify-content-end mt-3 border-top pt-3">
-                      <a [routerLink]="['/products']" class="btn btn-secondary">
-                        <i class="bi bi-x-circle"></i> Cancelar
-                      </a>
-                      <button type="submit" class="btn bg-success text-white" [disabled]="isSaving">
-                        
-                        <i class="bi bi-save"></i> Guardar Producto 
-                        
-                      </button>
+                      <div class="mb-3">
+                        <label class="form-label text-muted fw-semibold small">Descripción</label>
+                        <textarea class="form-control bg-light border-0" formControlName="descripcion" rows="4" placeholder="Detalles del producto..."></textarea>
+                      </div>
+
+                      <div class="mb-3 p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-10">
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input cursor-pointer" type="checkbox" id="enVenta" formControlName="enVenta">
+                          <label class="form-check-label fw-semibold text-success ms-2" for="enVenta">
+                            Producto disponible para la venta
+                          </label>
+                        </div>
+                        <small class="text-muted d-block mt-1 ms-4 ps-1">Si se desactiva, el producto no aparecerá en la App móvil.</small>
+                      </div>
                     </div>
-                  </form>
                   </div>
+
+                  <div class="d-flex gap-2 justify-content-end mt-5 pt-3 border-top">
+                    <a [routerLink]="['/products']" class="btn btn-light text-secondary px-4 fw-semibold rounded-pill">
+                      Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-success shadow-sm px-5 fw-semibold rounded-pill" [disabled]="isSaving">
+                      @if (isSaving) {
+                        <span class="spinner-border spinner-border-sm me-2"></span> Guardando...
+                      } @else {
+                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Guardar Producto
+                      }
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 </div>
-

@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ClientesService } from '../../services/clientes-service';
 import { Cliente } from '../../interfaces/clientes-response';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DireccionesService } from '../../services/direcciones-service';
 
 @Component({
   selector: 'app-users-create-page',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './users-create-page.html',
   styleUrl: './users-create-page.css',
 })
@@ -16,7 +15,6 @@ export class UsersCreatePage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private clientesService: ClientesService,
-    private direccionesService: DireccionesService
   ) {}
 
   errors: string[] = [];
@@ -112,48 +110,32 @@ export class UsersCreatePage implements OnInit {
     const password = this.createForm.value.password ?? '';
     const password_confirmation = this.createForm.value.password_confirmation ?? '';
     const telefono = this.createForm.value.telefono ?? '';
-    const saldo = Number(this.createForm.value.saldo ?? 0);
+    let saldoStr = this.createForm.value.saldo?.toString() ?? '0';
+    saldoStr = saldoStr.replace(',', '.');
+    const saldo = Number(saldoStr);
     const dni = this.createForm.value.dni ?? '';
     const municipio = this.createForm.value.municipio ?? '';
     const calle = this.createForm.value.calle ?? '';
     const numCasa = this.createForm.value.numCasa ?? '';
     const provincia = this.createForm.value.provincia ?? '';
 
+    // Si estamos EDITANDO
     if (this.clientId) {
       const activo = this.cliente?.activo ?? true;
-      if (!this.currentDireccionId) {
-        this.errors = ['No se pudo actualizar: falta direccion_id del cliente.'];
-        this.isSaving = false;
-        return;
-      }
-
-      this.direccionesService
-        .editDireccion(this.currentDireccionId, {
-          municipio,
-          calle,
-          numCasa,
-          provincia,
-        })
+      
+      this.clientesService
+        .editClient(this.clientId, nombre, apellidos, telefono, email, dni, saldo, activo, calle, numCasa, municipio, provincia, password)
         .subscribe({
-          next: () => {
-            this.clientesService
-              .editClient(this.clientId, nombre, apellidos, telefono, email, dni, saldo, activo, this.currentDireccionId!)
-              .subscribe({
-                next: () => this.navigateToClients(),
-                error: () => {
-                  this.errors = ['No se pudo guardar el cliente. Revisa los datos e intentalo de nuevo.'];
-                  this.isSaving = false;
-                },
-              });
-          },
+          next: () => this.navigateToClients(),
           error: () => {
-            this.errors = ['No se pudo actualizar la direccion del cliente. Revisa los datos e intentalo de nuevo.'];
+            this.errors = ['No se pudo guardar el cliente. Revisa los datos e inténtalo de nuevo.'];
             this.isSaving = false;
           },
         });
       return;
     }
 
+    // Si estamos CREANDO 
     this.clientesService
       .createClient({
         name: nombre,
@@ -175,7 +157,7 @@ export class UsersCreatePage implements OnInit {
           this.navigateToClients();
         },
         error: () => {
-          this.errors = ['No se pudo crear el cliente. Revisa los datos e intentalo de nuevo.'];
+          this.errors = ['No se pudo crear el cliente. Revisa los datos e inténtalo de nuevo.'];
           this.isSaving = false;
         },
       });

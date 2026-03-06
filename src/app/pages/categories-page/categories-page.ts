@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria, CategoriesResponse } from '../../interfaces/categorias.interface';
 import { CategoriesService } from '../../services/categories-service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-categories-page',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './categories-page.html',
   styleUrl: './categories-page.css',
 })

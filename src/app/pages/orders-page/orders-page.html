@@ -1,150 +1,189 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-<div class="container-fluid m-0 min-vh-100 d-flex flex-column">
-  <div class="row flex-shrink-0">
-    <div class="p-3 p-md-4 col-12 col-md-3 col-lg-2 border-bottom-0">Credito</div>
-    <div class="p-3 p-md-4 col-12 col-md-9 col-lg-10 border-bottom">Pedidos</div>
+<div class="container-fluid m-0 min-vh-100 d-flex flex-column" style="min-height: 100vh; background-color: #F5F5F7;">
+  <div class="row flex-shrink-0 bg-white">
+    <div class="p-4 col-2 border-bottom-0 fw-bold fs-5 text-success">Crédito Solidario</div>
+    <div class="p-4 col-10 border-bottom d-flex justify-content-between align-items-center">
+      <span class="fs-5 fw-semibold text-secondary">Gestión de Pedidos</span>
+      <div>
+        <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 rounded-pill">
+          <i class="bi bi-circle-fill text-success" style="font-size: 8px;"></i> Sistema Online
+        </span>
+      </div>
+    </div>
   </div>
-  <div class="row flex-grow-1 h-100">
-    <div class="col-12 col-md-3 col-lg-2 border-end">
+
+  <div class="row flex-grow-1" style="flex: 1 1 auto; min-height: 0;">
+    <div class="col-2 border-end bg-white">
       <ul class="nav flex-column">
         <li class="nav-item mt-3 mb-2">
-          <a class="nav-link text-secondary" routerLink="/dashboard"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/dashboard" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaDashboard.isActive" #rlaDashboard="routerLinkActive">
+            <i class="bi bi-house-door-fill"></i> Dashboard
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link" routerLink="/orders"><i class="bi bi-box2-fill"></i> Pedidos</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/orders" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaOrders.isActive" #rlaOrders="routerLinkActive">
+            <i class="bi bi-box2-fill"></i> Pedidos
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/products"><i class="bi bi-archive-fill"></i> Productos</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/products" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaProducts.isActive" #rlaProducts="routerLinkActive">
+            <i class="bi bi-archive-fill"></i> Productos
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/clients"><i class="bi bi-person-fill"></i> Clientes</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/clients" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaClients.isActive" #rlaClients="routerLinkActive">
+            <i class="bi bi-person-fill"></i> Clientes
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/categories"><i class="bi bi-funnel-fill"></i> Categorias</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/categories" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaCategories.isActive" #rlaCategories="routerLinkActive">
+            <i class="bi bi-funnel-fill"></i> Categorías
+          </a>
         </li>
         <li class="nav-item mb-2">
-          <a class="nav-link text-secondary" routerLink="/shopping-cart"><i class="bi bi-cart-fill"></i> Carrito de la compra</a>
+          <a class="nav-link mx-2 hover-bg" routerLink="/shopping-cart" routerLinkActive="text-success fw-bold bg-success bg-opacity-10" [class.text-secondary]="!rlaCart.isActive" #rlaCart="routerLinkActive">
+            <i class="bi bi-cart-fill"></i> Reposición
+          </a>
         </li>
       </ul>
     </div>
-    <div class="col-12 col-md-9 col-lg-10 bg-light d-flex flex-column">
-      <main class="flex-grow-1 d-flex flex-column justify-content-start">
-        <div class="container py-4 flex-grow-1 d-flex flex-column">
-          <h5 class="ms-2">Gestion de Pedidos</h5>
-          @if (errorMessage) {
-            <div class="alert alert-danger mt-3" role="alert">
-              {{ errorMessage }}
-            </div>
-          }
-          @if (successMessage) {
-            <div class="alert alert-success mt-3" role="alert">
-              <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
-            </div>
-          }
-          <div class="table-responsive mt-4">
-            <table class="table table-bordered align-middle bg-white">
-              <thead class="table-light">
-                <tr>
-                  <th>Cliente</th>
-                  <th>Tipo</th>
-                  <th>ID Pedido</th>
-                  <th>Estado</th>
-                  <th>Tarjeta</th>
-                  <th>Fecha</th>
-                  <th>Total</th>
-                  <th class="text-center">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                @if (isLoading) {
-                  <tr>
-                    <td colspan="8" class="text-center py-4">Cargando pedidos...</td>
-                  </tr>
-                } @else {
-                  @for (order of orders; track order.id) {
-                    <tr>
-                      <td>
-                        {{
-                          order.tipo === 'reposicion'
-                            ? (order.nombre || 'Administrador')
-                            : ((order.cliente?.nombre || '') + ' ' + (order.cliente?.apellidos || '')).trim()
-                        }}
-                      </td>
-                      <td>
-                        <span [class]="getOrderTypeClass(order.tipo)">
-                          {{ order.tipo === 'reposicion' ? 'Reposicion' : 'Venta' }}
-                        </span>
-                      </td>
-                      <td>#{{ order.id }}</td>
-                      <td>
-                        <span [ngClass]="[getStatusClass(order.estado?.nombre), 'fs-6', 'px-3', 'py-2', 'd-inline-block']">
-                          {{ order.estado?.nombre || 'Sin estado' }}
-                        </span>
-                      </td>
-                      <td><span class="text-muted">No disponible</span></td>
-                      <td>{{ order.fechaPedido | date:'dd/MM/yyyy' }}</td>
-                      <td>
-                        <span class="text-success fw-semibold">{{ getOrderTotal(order) | number:'1.2-2' }} pts</span>
-                      </td>
-                     <td class="text-center">
-                        @if (order.estado?.nombre !== 'Finalizado') {
-                          <button class="btn btn-success btn-sm me-2" 
-                                  data-bs-toggle="modal" 
-                                  data-bs-target="#confirmFinishModal"
-                                  (click)="prepareFinish(order)" 
-                                  title="Finalizar Pedido">
-                            <i class="bi bi-check-circle-fill"></i> Finalizar
-                          </button>
-                        }
-                        
-                        <button class="btn btn-outline-secondary btn-sm" disabled>
-                          <i class="bi bi-download"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  } @empty {
-                    <tr>
-                      <td colspan="8" class="text-center py-4 text-muted">
-                        No hay pedidos registrados.
-                      </td>
-                    </tr>
-                  }
-                }
-              </tbody>
-            </table>
+
+    <div class="col-10 p-4 overflow-auto">
+      <div class="container-fluid">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h3 class="fw-bold text-dark mb-1">Listado de Pedidos</h3>
+            <p class="text-muted mb-0">Controla el flujo de ventas y reposiciones en tiempo real.</p>
           </div>
         </div>
-      </main>
-    </div>
-  </div>
-  <div class="modal fade" id="confirmFinishModal" tabindex="-1" aria-labelledby="confirmFinishModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content border-0 shadow">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="confirmFinishModalLabel">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Finalización
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body fs-5">
-        ¿Estás seguro de que quieres marcar el pedido <strong>#{{ orderToFinish?.id }}</strong> como Finalizado?
-        <div class="mt-3 fs-6 text-muted">
-          <i class="bi bi-bell-fill text-warning me-1"></i> El cliente recibirá una notificación al instante.
+
+        @if (errorMessage) {
+          <div class="alert alert-danger border-0 border-start border-danger border-4 shadow-sm mb-4">
+            <i class="bi bi-exclamation-octagon-fill me-2"></i> {{ errorMessage }}
+          </div>
+        }
+        @if (successMessage) {
+          <div class="alert alert-success border-0 border-start border-success border-4 shadow-sm mb-4">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
+          </div>
+        }
+
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-secondary small text-uppercase">
+                  <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Cliente / Origen</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th class="text-center pe-4">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="border-top-0">
+                  @if (isLoading) {
+                    <tr>
+                      <td colspan="7" class="text-center py-5">
+                        <div class="spinner-border text-success" role="status"></div>
+                        <p class="mt-2 text-muted mb-0">Cargando pedidos...</p>
+                      </td>
+                    </tr>
+                  } @else {
+                    @for (order of orders; track order.id) {
+                      <tr>
+                        <td class="ps-4 fw-bold text-secondary">#{{ order.id }}</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3 text-primary d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                              <i class="bi bi-person-fill"></i>
+                            </div>
+                            <span class="fw-semibold text-dark">
+                              {{ order.tipo === 'reposicion' ? (order.nombre || 'Administrador') : ((order.cliente?.nombre || '') + ' ' + (order.cliente?.apellidos || '')).trim() }}
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <span class="badge rounded-pill fw-normal" [ngClass]="order.tipo === 'reposicion' ? 'bg-info text-dark bg-opacity-10 border border-info' : 'bg-primary text-primary bg-opacity-10 border border-primary'">
+                            {{ order.tipo === 'reposicion' ? 'Reposición' : 'Venta' }}
+                          </span>
+                        </td>
+                        <td>
+                          <span class="badge rounded-pill px-3 py-2 fw-semibold" [ngClass]="getStatusClass(order.estado?.nombre)">
+                            {{ order.estado?.nombre || 'Sin estado' }}
+                          </span>
+                        </td>
+                        <td class="text-muted">{{ order.fechaPedido | date:'dd/MM/yyyy' }}</td>
+                        <td class="fw-bold text-dark">
+                          {{ getOrderTotal(order) | number:'1.2-2' }} <small class="fw-normal">pts</small>
+                        </td>
+                        <td class="text-center pe-4">
+                          <div class="d-flex justify-content-center gap-2">
+                            @if (order.estado?.nombre !== 'Finalizado') {
+                              <button class="btn btn-sm btn-success rounded-pill px-3" 
+                                      data-bs-toggle="modal" 
+                                      data-bs-target="#confirmFinishModal"
+                                      (click)="prepareFinish(order)">
+                                <i class="bi bi-check2-circle me-1"></i> Finalizar
+                              </button>
+                            } @else {
+                              <button class="btn btn-sm btn-light text-muted rounded-pill px-3" disabled>
+                                <i class="bi bi-check-all"></i> Completado
+                              </button>
+                            }
+                            <button class="btn btn-sm btn-outline-secondary rounded-circle" disabled title="Descargar Factura">
+                              <i class="bi bi-file-earmark-pdf"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    } @empty {
+                      <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                          <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                          No hay pedidos registrados en este momento.
+                        </td>
+                      </tr>
+                    }
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="card-footer bg-white border-top py-3">
+             <small class="text-muted">Total pedidos: {{ orders.length }}</small>
+          </div>
         </div>
       </div>
-      <div class="modal-footer bg-light">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="confirmFinish()">
-          Sí, finalizar pedido
-        </button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmFinishModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom-0 pt-4 px-4">
+          <h5 class="modal-title fw-bold text-dark">
+            Finalizar Pedido
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 pb-4">
+          <p class="text-secondary fs-5">¿Estás seguro de marcar el pedido <strong class="text-dark">#{{ orderToFinish?.id }}</strong> como finalizado?</p>
+          <div class="p-3 bg-light rounded-3 small text-muted">
+            <i class="bi bi-info-circle-fill text-info me-2"></i> Esta acción actualizará el stock de productos y notificará al cliente de inmediato.
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 px-4 pb-4 gap-2">
+          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success rounded-pill px-4 shadow-sm" data-bs-dismiss="modal" (click)="confirmFinish()">
+            Confirmar Entrega
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-
-

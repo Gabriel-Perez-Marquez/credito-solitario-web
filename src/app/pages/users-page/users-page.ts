@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../services/clientes-service';
 import { Cliente, ClienteResponse } from '../../interfaces/clientes-response';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-users-page',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './users-page.html',
   styleUrl: './users-page.css',
 })
