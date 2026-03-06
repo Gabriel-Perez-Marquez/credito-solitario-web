@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products-service';
 import { Product } from '../../interfaces/product-interface';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ShoppingListService } from '../../services/shopping-list-service';
 import { FormsModule } from '@angular/forms';
 
@@ -27,7 +27,8 @@ export class ProductsPage implements OnInit{
 
   constructor(
     private productsService: ProductsService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -151,5 +152,12 @@ export class ProductsPage implements OnInit{
     return result;
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+
+    this.router.navigate(['/login']);
+  }
 
 }

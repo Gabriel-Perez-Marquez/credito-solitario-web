@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesResponse } from '../../interfaces/categorias.interface';
 import { CategoriesService } from '../../services/categories-service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DashboardService } from '../../services/dashboard-service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })
@@ -25,7 +26,7 @@ export class DashboardPage implements OnInit{
   ultimosPedidos: any[] = [];
   productosReponer: any[] = [];
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarDatosDashboard();
@@ -102,4 +103,14 @@ export class DashboardPage implements OnInit{
       }
     });
   }
+
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+
+    this.router.navigate(['/login']);
+  }
+
 }

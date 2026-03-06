@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Pedido } from '../../interfaces/pedidos-response';
 import { OrdersService } from '../../services/orders-service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-orders-page',
@@ -19,7 +19,7 @@ export class OrdersPage {
   orderToFinish: Pedido | null = null;
   private successMessageTimeout: any = null;
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadOrders();
@@ -105,6 +105,14 @@ export class OrdersPage {
       this.successMessage = null;
       this.successMessageTimeout = null;
     }, 3000); 
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+
+    this.router.navigate(['/login']);
   }
 
 }

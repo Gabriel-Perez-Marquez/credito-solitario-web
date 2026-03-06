@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../services/clientes-service';
 import { Cliente, ClienteResponse } from '../../interfaces/clientes-response';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-users-page',
@@ -17,7 +17,7 @@ export class UsersPage implements OnInit {
   successMessage: string | null = null;
   messageTimeout: any = null;
 
-  constructor(private clienteService: ClientesService) {}
+  constructor(private clienteService: ClientesService, private router: Router) {}
 
   ngOnInit(): void {
     this.clienteService.getClientes().subscribe(resp => {
@@ -62,6 +62,14 @@ export class UsersPage implements OnInit {
       this.successMessage = null;
       this.errorMessage = null;
     }, 5000);
+  }
+
+  logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  
+
+  this.router.navigate(['/login']);
   }
 
 

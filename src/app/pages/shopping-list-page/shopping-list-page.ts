@@ -3,7 +3,7 @@ import { ShoppingListService } from '../../services/shopping-list-service';
 import { LineaVentaInterface } from '../../interfaces/linea-venta-interface';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CategoriesService } from '../../services/categories-service';
 import { Categoria } from '../../interfaces/categorias.interface';
 
@@ -23,7 +23,7 @@ export class ShoppingListPage {
   successMessage: string | null = null;
 
 
-  constructor(private shoppingService: ShoppingListService, private categoriaService: CategoriesService) {}
+  constructor(private shoppingService: ShoppingListService, private categoriaService: CategoriesService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCategorias();
@@ -96,5 +96,13 @@ export class ShoppingListPage {
     return cat ? cat.nombre : 'Cargando...';
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+
+    this.router.navigate(['/login']);
+  }
   
+
 }

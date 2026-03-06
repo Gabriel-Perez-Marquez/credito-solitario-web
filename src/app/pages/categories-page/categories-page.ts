@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria, CategoriesResponse } from '../../interfaces/categorias.interface';
 import { CategoriesService } from '../../services/categories-service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-categories-page',
@@ -17,7 +17,7 @@ export class CategoriesPage implements OnInit {
     successMessage: string | null = null;
     messageTimeout: any = null;
     
-    constructor( private categoriasService: CategoriesService) {
+    constructor( private categoriasService: CategoriesService, private router: Router) {
       
     }
     
@@ -65,5 +65,12 @@ confirmDelete() {
     }, 5000); 
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+
+    this.router.navigate(['/login']);
+  }
 
 }
