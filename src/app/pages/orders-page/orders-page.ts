@@ -15,6 +15,10 @@ export class OrdersPage {
   isLoading = false;
   errorMessage: string | null = null;
 
+  successMessage: string | null = null;
+  orderToFinish: Pedido | null = null;
+  private successMessageTimeout: any = null;
+
   constructor(private ordersService: OrdersService) {}
 
   ngOnInit(): void {
@@ -68,21 +72,39 @@ export class OrdersPage {
     return 'badge bg-secondary bg-opacity-25 text-secondary';
   }
 
-  markAsFinished(order: Pedido) {
-    if (!confirm(`¿Estás seguro de marcar el pedido #${order.id} como Finalizado?`)) return;
+  prepareFinish(order: Pedido) {
+    this.orderToFinish = order;
+  }
 
-    
+  confirmFinish() {
+    if (!this.orderToFinish) return;
+
     const ID_ESTADO_FINALIZADO = 2; 
 
-    this.ordersService.updateOrderStatus(order.id, ID_ESTADO_FINALIZADO).subscribe({
+    this.ordersService.updateOrderStatus(this.orderToFinish.id, ID_ESTADO_FINALIZADO).subscribe({
       next: () => {
-        alert('Pedido finalizado correctamente. El cliente recibirá una notificación.');
-        this.loadOrders();
+        this.showSuccessMessage(`Pedido #${this.orderToFinish!.id} finalizado correctamente.`);
+        this.orderToFinish = null; 
+        this.loadOrders(); 
       },
       error: () => {
         this.errorMessage = 'Error al actualizar el estado del pedido.';
+        this.orderToFinish = null;
       }
     });
+  }
+
+  private showSuccessMessage(message: string) {
+    this.successMessage = message;
+    
+    if (this.successMessageTimeout) {
+      clearTimeout(this.successMessageTimeout);
+    }
+    
+    this.successMessageTimeout = setTimeout(() => {
+      this.successMessage = null;
+      this.successMessageTimeout = null;
+    }, 3000); 
   }
 
 }

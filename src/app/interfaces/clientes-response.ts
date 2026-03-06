@@ -6,7 +6,7 @@ export interface Cliente {
   apellidos: string
   telefono: string
   email: string
-  dni: number
+  dni: string
   saldo: number
   activo: boolean
   direccion_id: number
@@ -14,6 +14,23 @@ export interface Cliente {
   updated_at: string
   direccion: Direccion
 }
+
+export interface ClienteRequest {
+  name: string
+  apellidos: string
+  email: string
+  password: string
+  password_confirmation: string
+  telefono: string
+  saldo: number
+  dni: string
+  municipio: string
+  calle: string
+  numCasa: string
+  provincia: string
+}
+
+
 
 export interface Direccion {
   id: number

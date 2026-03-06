@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesResponse } from '../../interfaces/categorias.interface';
+import { Categoria, CategoriesResponse } from '../../interfaces/categorias.interface';
 import { CategoriesService } from '../../services/categories-service';
 import { RouterLink } from '@angular/router';
 
@@ -11,7 +11,11 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoriesPage implements OnInit {
 
-  categories:  CategoriesResponse = []
+    categories:  CategoriesResponse = []
+    categoryToDelete: Categoria | null = null;
+    errorMessage: string | null = null;
+    successMessage: string | null = null;
+    messageTimeout: any = null;
     
     constructor( private categoriasService: CategoriesService) {
       
@@ -27,11 +31,39 @@ export class CategoriesPage implements OnInit {
       this.loadCategories()
     }
 
-    deleteCategory(id: number){
-      this.categoriasService.deleteCategory(id).subscribe(() => {
+    prepareDelete(categoria: Categoria) {
+  this.categoryToDelete = categoria;
+}
+
+confirmDelete() {
+    if (!this.categoryToDelete) return;
+    
+    this.errorMessage = null;
+
+    this.categoriasService.deleteCategory(this.categoryToDelete.id).subscribe({
+      next: () => {
+        this.showTemporaryMessage(`Categoría "${this.categoryToDelete!.nombre}" eliminada.`, 'success');
+        this.categoryToDelete = null;
         this.loadCategories();
-      });
-    }
+      },
+      error: (err) => {
+        this.categoryToDelete = null;
+        this.errorMessage = 'No se puede eliminar la categoría porque tiene productos vinculados.';
+        this.showTemporaryMessage(null, 'error'); 
+      }
+    });
+  }
+
+  private showTemporaryMessage(msg: string | null, type: 'success' | 'error') {
+    if (type === 'success') this.successMessage = msg;
+    
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
+    
+    this.messageTimeout = setTimeout(() => {
+      this.successMessage = null;
+      this.errorMessage = null;
+    }, 5000); 
+  }
 
 
 }

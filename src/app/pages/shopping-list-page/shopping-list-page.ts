@@ -4,6 +4,8 @@ import { LineaVentaInterface } from '../../interfaces/linea-venta-interface';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CategoriesService } from '../../services/categories-service';
+import { Categoria } from '../../interfaces/categorias.interface';
 
 @Component({
   selector: 'app-shopping-list-page',
@@ -17,11 +19,19 @@ export class ShoppingListPage {
   subtotal: number = 0;
   iva: number = 0;
   total: number = 0;
+  categorias: Categoria[] = [];
 
-  constructor(private shoppingService: ShoppingListService) {}
+  constructor(private shoppingService: ShoppingListService, private categoriaService: CategoriesService) {}
 
   ngOnInit(): void {
+    this.loadCategorias();
     this.loadData();
+  }
+
+  loadCategorias() {
+    this.categoriaService.getCategorias().subscribe(resp => {
+      this.categorias = resp;
+    });
   }
 
   loadData() {
@@ -77,5 +87,12 @@ export class ShoppingListPage {
         alert(message);
       },
     });
+  }
+
+  getNombreCategoria(id?: number) {
+    if (!id) return 'Sin categoría';
+    
+    const cat = this.categorias.find(c => c.id === id);
+    return cat ? cat.nombre : 'Cargando...';
   }
 }

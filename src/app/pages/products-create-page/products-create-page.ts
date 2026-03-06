@@ -28,7 +28,7 @@ export class ProductsCreatePage implements OnInit{
     precio: new FormControl(0, [Validators.required, Validators.min(0.01)]),
     categoria_id: new FormControl<number | null>(null, [Validators.required]),
     descripcion: new FormControl(''),
-    enVenta: new FormControl(true)
+    activo: new FormControl(true)
   });
 
   constructor(
@@ -56,7 +56,7 @@ export class ProductsCreatePage implements OnInit{
             precio: this.producto.precio,
             categoria_id: this.producto.categoria_id,
             descripcion: this.producto.descripcion,
-            enVenta: this.producto.enVenta
+            activo: this.producto.activo
           })
         }
       })
@@ -90,7 +90,7 @@ export class ProductsCreatePage implements OnInit{
       precio: this.productForm.value.precio || 0,
       categoria_id: this.productForm.value.categoria_id!,
       descripcion: this.productForm.value.descripcion || '',
-      enVenta: this.productForm.value.enVenta ?? true
+      activo: this.productForm.value.activo ?? true
     };
 
     if(this.productId){

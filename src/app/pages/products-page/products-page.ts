@@ -22,7 +22,8 @@ export class ProductsPage implements OnInit{
   isLoading = false;
   errorMessage: string | null = null;
   successMessage: string | null = null;
-  private successMessageTimeout: any = null;
+  successMessageTimeout: any = null;
+  productToDelete: Product | null = null;
 
   constructor(
     private productsService: ProductsService,
@@ -49,11 +50,44 @@ export class ProductsPage implements OnInit{
     });
   }
 
-  deleteProduct(id: number) {
-    this.productsService.deleteProduct(id).subscribe({
-      next: () => this.loadProducts(),
+  prepareDelete(product: Product) {
+    this.productToDelete = product;
+  }
+
+  confirmDelete() {
+    if (!this.productToDelete) return;
+
+    this.productsService.deleteProduct(this.productToDelete.id).subscribe({
+      next: () => {
+        this.showSuccessMessage(`Producto "${this.productToDelete!.nombre}" eliminado correctamente.`);
+        this.productToDelete = null; 
+        this.loadProducts(); 
+      },
       error: () => {
-        this.errorMessage = 'No se pudo eliminar el producto.';
+        this.productToDelete = null;
+        this.errorMessage = 'No se puede eliminar el producto ya que tiene pedidos asignados.';
+      }
+    });
+  }
+
+  toggleVisibility(product: Product) {
+    const updatedProduct: any = {
+      nombre: product.nombre,
+      urlImagen: product.urlImagen,
+      stock: product.stock,
+      precio: product.precio,
+      categoria_id: product.categoria_id,
+      descripcion: product.descripcion,
+      activo: !product.activo
+    };
+    
+    this.productsService.updateProduct(product.id, updatedProduct).subscribe({
+      next: () => {
+        product.activo = !product.activo; 
+        this.showSuccessMessage(`Producto marcado como ${product.activo ? 'Activo' : 'Inactivo'}.`);
+      },
+      error: () => {
+        this.errorMessage = 'No se pudo actualizar el estado del producto. Por favor, inténtalo de nuevo.';
       }
     });
   }
