@@ -21,28 +21,31 @@ export class LoginPage {
   constructor(private router: Router, private authService: Auth) {}
 
   validateForm() {
-    this.errors = [];
-    
-    if (!this.loginForm.valid) {
-      if (this.loginForm.get('formControlUser')?.hasError('required')) {
-        this.errors.push('El usuario es obligatorio');
-      }
-      if (this.loginForm.get('formControlPassword')?.hasError('required')) {
-        this.errors.push('La contraseña es obligatoria');
-      }
-    } else {
-      
-      
-      const email = this.loginForm.value.formControlUser ?? '';
-      const password = this.loginForm.value.formControlPassword ?? '';
-      
-
-      this.authService.login(String(email), String(password)).subscribe(resp => {
-        localStorage.setItem('auth_token', resp.token)
-        this.navigateToDashboard()
-      });
+  this.errors = [];
+  
+  if (!this.loginForm.valid) {
+    if (this.loginForm.get('formControlUser')?.hasError('required')) {
+      this.errors.push('El usuario es obligatorio');
     }
+    if (this.loginForm.get('formControlPassword')?.hasError('required')) {
+      this.errors.push('La contraseña es obligatoria');
+    }
+  } else {
+    const email = this.loginForm.value.formControlUser ?? '';
+    const password = this.loginForm.value.formControlPassword ?? '';
+
+    this.authService.login(String(email), String(password)).subscribe({
+      next: (resp) => {
+        localStorage.setItem('auth_token', resp.token);
+        this.navigateToDashboard();
+      },
+      error: (err) => {
+        this.errors = ['Las credenciales introducidas no son correctas.'];
+        console.error('Login error:', err);
+      }
+    });
   }
+}
 
   navigateToDashboard() {
     this.router.navigateByUrl('/dashboard'); 
