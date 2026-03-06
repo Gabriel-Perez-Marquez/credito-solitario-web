@@ -12,13 +12,13 @@ export class Auth {
 
   constructor(private http: HttpClient) { }
 
-  login(email: String, password: String): Observable<LoginResponse> {
+  login(email: string, password: string): Observable<LoginResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
 
-    const body = { email, password };
+    const body = { email, password, origen: 'web' };
     return this.http.post<LoginResponse>(this.apiUrl, body, { headers });
   }
 }
