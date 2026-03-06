@@ -10,6 +10,10 @@ Este repositorio contiene el frontend del panel de administración de **Crédito
 * **Comunicación:** `HttpClient` para el consumo de servicios API.
 * **Seguridad:** Interceptores HTTP para el manejo de tokens de autenticación JWT.
 
+# Credenciales
+* username: admin@creditosolidario.com
+* password: password123
+
 ## 📂 Estructura del Proyecto (`src/app`)
 
 El proyecto está organizado por módulos de servicios, interfaces y páginas:
